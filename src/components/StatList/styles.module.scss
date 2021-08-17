@@ -1,0 +1,134 @@
+.statsTable {
+    width: 100%;
+    table-layout: fixed;
+    margin-top: -0.5rem;
+    margin-bottom: .5rem;
+
+    td {
+        padding: .5rem;
+        width: 3rem;
+        white-space: nowrap;
+
+        &:nth-child(1) {
+            font-size: 0.875rem;
+            font-weight: 500;
+            width: 7.5rem;
+            text-transform: capitalize;
+            padding-left: 0;
+
+            color: var(--grey-900);
+        }
+
+        &:nth-child(3) {
+            width: 60%;
+
+            .progressBar {
+                height: 0.5rem;
+                border-radius: 2rem;
+
+                background-color: var(--grey-50);
+
+                .progressBarValue {
+                    height: 0.5rem;
+                    border-radius: 2rem;
+
+                    &.Bug {
+                        background-color: var(--type-bug);
+                    }
+
+                    &.Dark {
+                        background-color: var(--type-dark);
+                    }
+
+                    &.Dragon {
+                        background-color: var(--type-dragon);
+                    }
+
+                    &.Electric {
+                        background-color: var(--type-electric);
+                    }
+
+                    &.Fairy {
+                        background-color: var(--type-fairy);
+                    }
+
+                    &.Fighting {
+                        background-color: var(--type-fighting);
+                    }
+
+                    &.Fire {
+                        background-color: var(--type-fire);
+                    }
+
+                    &.Flying {
+                        background-color: var(--type-flying);
+                    }
+
+                    &.Ghost {
+                        background-color: var(--type-ghost);
+                    }
+
+                    &.Grass {
+                        background-color: var(--type-grass);
+                    }
+
+                    &.Ground {
+                        background-color: var(--type-ground);
+                    }
+
+                    &.Ice {
+                        background-color: var(--type-ice);
+                    }
+
+                    &.Normal {
+                        background-color: var(--type-normal);
+                    }
+
+                    &.Poison {
+                        background-color: var(--type-poison);
+                    }
+
+                    &.Psychic {
+                        background-color: var(--type-psychic);
+                    }
+
+                    &.Rock {
+                        background-color: var(--type-rock);
+                    }
+
+                    &.Steel {
+                        background-color: var(--type-steel);
+                    }
+
+                    &.Water {
+                        background-color: var(--type-water);
+                    }
+                }
+            }
+        }
+
+        &:nth-child(2),
+        &:nth-child(4),
+        &:nth-child(5) {
+            text-align: right;
+        }
+    }
+
+    tfoot {
+        td {
+            color: var(--grey-900);
+            font-weight: 500;
+
+            &:nth-child(2) {
+                font-size: 1.125rem;
+                font-weight: bold;
+
+                color: var(--grey-300);
+            }
+        }
+    }
+}
+
+.infoText {
+    font-size: 0.875rem;
+}

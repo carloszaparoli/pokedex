@@ -1,0 +1,80 @@
+.evolutionChainList {
+    li {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+
+        .pokemon {
+            width: 9.75rem;
+            position: relative;
+
+            .pokeballImage {
+                position: absolute;
+                width: 9.75rem;
+            }
+
+            a {
+                display: block;
+                text-align: center;
+                position: relative;
+
+                .imageContainer {
+                    padding: 0.75rem;
+
+                    .image {
+                        width: 8.25rem;
+                    }
+                }
+                
+
+                .number {
+                    font-size: 0.875rem;
+                    font-weight: 500;
+                    color: var(--grey-300);
+                }
+
+                .name {
+                    font-weight: bold;
+                    font-size: 1.125rem;
+                    color: var(--grey-900);
+                }
+            }
+        }
+
+        .evolvesTo {
+            text-align: center;
+
+            .arrowImage {
+                filter: opacity(0.3);
+            }
+
+            span {
+                display: block;
+                font-size: 0.875rem;
+                font-weight: bold;
+                margin-top: 0.5rem;
+
+                color: var(--grey-900);
+            }
+
+            .evolutionItem {
+                display: flex;
+                align-items: center;
+                margin-top: .5rem;
+
+                img {
+                    margin-right: .25rem;
+                }
+
+                span {
+                    margin: 0;
+                }
+            }
+        }
+    }
+}

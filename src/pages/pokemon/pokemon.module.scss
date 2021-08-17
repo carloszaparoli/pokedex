@@ -1,0 +1,434 @@
+.pokemonContainer {
+    max-width: 700px;
+    margin: 3rem auto;
+    border-radius: 1rem;
+
+    background: url('/images/pokeball.svg') no-repeat;
+    background-position: right -1.5rem top -1.5rem;
+    background-size: 250px;
+
+    .header {
+        padding: 2rem;
+        padding-bottom: 0;
+
+        .headerWrapper {
+            display: flex;
+            justify-content: space-between;
+
+            .title {
+                margin-bottom: .5rem;
+                color: var(--white);
+            }
+
+            .typeList {
+                li {
+                    display: inline-flex;
+                    align-items: center;
+
+                    padding: .25rem .5rem;
+                    border-radius: 0.1875rem;
+                    margin-right: .25rem;
+
+                    color: var(--white);
+
+                    img {
+                        margin-right: .25rem;
+                        filter: brightness(20);
+                    }
+
+                    &.Bug {
+                        background-color: var(--type-bug);
+                    }
+
+                    &.Dark {
+                        background-color: var(--type-dark);
+                    }
+
+                    &.Dragon {
+                        background-color: var(--type-dragon);
+                    }
+
+                    &.Electric {
+                        background-color: var(--type-electric);
+                    }
+
+                    &.Fairy {
+                        background-color: var(--type-fairy);
+                    }
+
+                    &.Fighting {
+                        background-color: var(--type-fighting);
+                    }
+
+                    &.Fire {
+                        background-color: var(--type-fire);
+                    }
+
+                    &.Flying {
+                        background-color: var(--type-flying);
+                    }
+
+                    &.Ghost {
+                        background-color: var(--type-ghost);
+                    }
+
+                    &.Grass {
+                        background-color: var(--type-grass);
+                    }
+
+                    &.Ground {
+                        background-color: var(--type-ground);
+                    }
+
+                    &.Ice {
+                        background-color: var(--type-ice);
+                    }
+
+                    &.Normal {
+                        background-color: var(--type-normal);
+                    }
+
+                    &.Poison {
+                        background-color: var(--type-poison);
+                    }
+
+                    &.Psychic {
+                        background-color: var(--type-psychic);
+                    }
+
+                    &.Rock {
+                        background-color: var(--type-rock);
+                    }
+
+                    &.Steel {
+                        background-color: var(--type-steel);
+                    }
+
+                    &.Water {
+                        background-color: var(--type-water);
+                    }
+                }
+            }
+
+            .number {
+                display: block;
+                font-weight: 600;
+                font-size: 1.25rem;
+                color: #17171B99;
+            }
+        }
+
+        .pokemonImage {
+            display: block;
+            max-width: 240px;
+            margin: 0 auto;
+            margin-bottom: -3rem;
+        }
+    }
+
+    .pokemonData {
+        padding: 3rem 2rem;
+        border-radius: 2rem 2rem 1rem 1rem;
+        border: 1px solid var(--grey-100);
+        border-top: 0;
+
+        background-color: var(--white);
+
+        .titleSection {
+            font-weight: bold;
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .description {
+            margin-bottom: 2.5rem;
+        }
+
+        section {
+            margin-bottom: 2.5rem;
+
+            &:last-child {
+                margin: 0;
+            }
+        }
+
+        .pokedexDataList,
+        .trainingList,
+        .breedingList {
+            > li {
+                display: flex;
+                align-items: center;
+                margin-bottom: 1.25rem;
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+
+                .label {
+                    display: block;
+                    font-weight: 500;
+                    width: 9.25rem;
+
+                    color: var(--grey-900);
+                }
+
+                .value {
+                    display: block;
+                    font-size: 1.125rem;
+
+                    &.hiddenAbility {
+                        font-size: .875rem;
+                    }
+                }
+            }
+        }
+
+        .pokedexDataList {
+            .abilitiesList {
+                li {
+                    margin-bottom: .5rem;
+
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+                }
+            }
+        }
+
+        .breedingList {
+            .maleText,
+            .femaleText {
+                font-size: 1.125rem;
+                font-weight: 500;
+
+                img {
+                    margin-right: .25rem;
+                }
+            }
+
+            .maleText {
+                color: var(--type-flying);
+            }
+
+            .femaleText {
+                color: var(--type-fairy);
+            }
+        } 
+    }
+
+    &.Bug {
+        background-color: var(--background-type-bug);
+
+        .titleSection {
+            color: var(--type-bug);
+        }
+
+        .progressBarValue {
+            background-color: var(--type-bug);
+        }
+    }
+
+    &.Dark {
+        background-color: var(--background-type-dark);
+
+        .titleSection {
+            color: var(--type-dark);
+        }
+
+        .progressBarValue {
+            background-color: var(--type-dark);
+        }
+    }
+
+    &.Dragon {
+        background-color: var(--background-type-dragon);
+
+        .titleSection {
+            color: var(--type-dragon);
+        }
+
+        .progressBarValue {
+            background-color: var(--type-dragon);
+        }
+    }
+
+    &.Electric {
+        background-color: var(--background-type-electric);
+
+        .titleSection {
+            color: var(--type-electric);
+        }
+
+        .progressBarValue {
+            background-color: var(--type-electric);
+        }
+    }
+
+    &.Fairy {
+        background-color: var(--background-type-fairy);
+
+        .titleSection {
+            color: var(--type-fairy);
+        }
+
+        .progressBarValue {
+            background-color: var(--type-fairy);
+        }
+    }
+
+    &.Fighting {
+        background-color: var(--background-type-fighting);
+
+        .titleSection {
+            color: var(--type-fighting);
+        }
+
+        .progressBarValue {
+            background-color: var(--type-fighting);
+        }
+    }
+
+    &.Fire {
+        background-color: var(--background-type-fire);
+
+        .titleSection {
+            color: var(--type-fire);
+        }
+
+        .progressBarValue {
+            background-color: var(--type-fire);
+        }
+    }
+
+    &.Flying {
+        background-color: var(--background-type-flying);
+
+        .titleSection {
+            color: var(--type-flying);
+        }
+
+        .progressBarValue {
+            background-color: var(--type-flying);
+        }
+    }
+
+    &.Ghost {
+        background-color: var(--background-type-ghost);
+
+        .titleSection {
+            color: var(--type-ghost);
+        }
+
+        .progressBarValue {
+            background-color: var(--type-ghost);
+        }
+    }
+
+    &.Grass {
+        background-color: var(--background-type-grass);
+
+        .titleSection {
+            color: var(--type-grass);
+        }
+
+        .progressBarValue {
+            background-color: var(--type-grass);
+        }
+    }
+
+    &.Ground {
+        background-color: var(--background-type-ground);
+
+        .titleSection {
+            color: var(--type-ground);
+        }
+
+        .progressBarValue {
+            background-color: var(--type-ground);
+        }
+    }
+
+    &.Ice {
+        background-color: var(--background-type-ice);
+
+        .titleSection {
+            color: var(--type-ice);
+        }
+
+        .progressBarValue {
+            background-color: var(--type-ice);
+        }
+    }
+
+    &.Normal {
+        background-color: var(--background-type-normal);
+
+        .titleSection {
+            color: var(--type-normal);
+        }
+
+        .progressBarValue {
+            background-color: var(--type-normal);
+        }
+    }
+
+    &.Poison {
+        background-color: var(--background-type-poison);
+
+        .titleSection {
+            color: var(--type-poison);
+        }
+
+        .progressBarValue {
+            background-color: var(--type-poison);
+        }
+    }
+
+    &.Psychic {
+        background-color: var(--background-type-psychic);
+
+        .titleSection {
+            color: var(--type-psychic);
+        }
+
+        .progressBarValue {
+            background-color: var(--type-psychic);
+        }
+    }
+
+    &.Rock {
+        background-color: var(--background-type-rock);
+
+        .titleSection {
+            color: var(--type-rock);
+        }
+
+        .progressBarValue {
+            background-color: var(--type-rock);
+        }
+    }
+
+    &.Steel {
+        background-color: var(--background-type-steel);
+
+        .titleSection {
+            color: var(--type-steel);
+        }
+
+        .progressBarValue {
+            background-color: var(--type-steel);
+        }
+    }
+
+    &.Water {
+        background-color: var(--background-type-water);
+
+        .titleSection {
+            color: var(--type-water);
+        }
+
+        .progressBarValue {
+            background-color: var(--type-water);
+        }
+    }
+}
