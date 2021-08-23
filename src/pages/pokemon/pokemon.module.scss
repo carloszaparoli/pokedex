@@ -31,9 +31,9 @@
 
                     color: var(--white);
 
-                    img {
+                    svg {
                         margin-right: .25rem;
-                        filter: brightness(20);
+                        fill: var(--white);
                     }
 
                     &.Bug {
@@ -201,7 +201,7 @@
                 font-size: 1.125rem;
                 font-weight: 500;
 
-                img {
+                svg {
                     margin-right: .25rem;
                 }
             }

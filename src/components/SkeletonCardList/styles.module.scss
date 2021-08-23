@@ -1,0 +1,29 @@
+.skeletonCardList {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 1.5rem;
+
+    max-width: 64rem;
+    margin: 0 auto;
+
+    li {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 112px;
+        padding: 1.5rem;
+        border-radius: 5px;
+
+        background-color: var(--white);
+
+        > div {
+            display: flex;
+            flex-direction: column;
+
+            div {
+                display: flex;
+                gap: 0.125rem;
+            }
+        }
+    }
+}

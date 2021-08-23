@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { Icon } from "../Icon"
 
 import styles from './styles.module.scss'
 
@@ -21,8 +22,6 @@ type EvolutionChainProps = {
 
 export function EvolutionChain({ evolutionChain }: EvolutionChainProps) {
 
-    console.log(evolutionChain)
-
     let evolutions = []
 
     if (evolutionChain.length > 1) {
@@ -41,10 +40,7 @@ export function EvolutionChain({ evolutionChain }: EvolutionChainProps) {
             {evolutions.map(pokemon => (
                 <li key={pokemon}>
                     <div className={styles.pokemon}>
-                        <img className={styles.pokeballImage}
-                            src="/images/pokeball-grey.svg"
-                            alt="Pokéball"
-                        />
+                        <Icon iconName="pokeball-grey-gradient" className={styles.pokeballImage} />
                         <Link href={'/pokemon/' + pokemon[0].nameLowerCase}>
                             <a>
                                 <div className={styles.imageContainer}>
@@ -61,27 +57,19 @@ export function EvolutionChain({ evolutionChain }: EvolutionChainProps) {
                         </Link>
                     </div>
                     <div className={styles.evolvesTo}>
-                        <img src="/images/arrow-right.svg"
-                            alt="Evolves to"
-                            className={styles.arrowImage}
-                        />
-                        {pokemon[1].minLevel != null
-                            ? <span>Level {pokemon[1].minLevel}</span>
-                            : null
+                        <Icon className={styles.arrowImage} iconName="arrow-right" width={20} height={21} />
+                        {pokemon[1].minLevel != null &&
+                            <span>Level {pokemon[1].minLevel}</span>
                         }
-                        {pokemon[1].item != null
-                            ? <div className={styles.evolutionItem}>
+                        {pokemon[1].item != null &&
+                            <div className={styles.evolutionItem}>
                                 <img src={pokemon[1].imageItem} alt={pokemon[1].item} />
                                 <span>{pokemon[1].item}</span>
                             </div>
-                            : null
                         }
                     </div>
                     <div className={styles.pokemon}>
-                        <img className={styles.pokeballImage}
-                            src="/images/pokeball-grey.svg"
-                            alt="Pokéball"
-                        />
+                        <Icon iconName="pokeball-grey-gradient" className={styles.pokeballImage} />
                         <Link href={'/pokemon/' + pokemon[1].nameLowerCase}>
                             <a>
                                 <div className={styles.imageContainer}>
@@ -101,8 +89,8 @@ export function EvolutionChain({ evolutionChain }: EvolutionChainProps) {
             ))}
         </ul>
     )
-    :
-    (
-        <p>This Pokemon does not evolve.</p>
-    )
+        :
+        (
+            <p>This Pokemon does not evolve.</p>
+        )
 }

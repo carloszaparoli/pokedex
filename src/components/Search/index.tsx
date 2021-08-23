@@ -1,25 +1,41 @@
 import { useState } from 'react'
+import { toast } from 'react-toastify'
+import { Icon } from '../Icon'
 
 import styles from './styles.module.scss'
 
-export function Search() {
-    const [search, setSearch] = useState<string>()
+type SearchProps = {
+    onSearch: (text: string) => void;
+}
+
+export let teste  = ""
+
+export function Search({ onSearch }: SearchProps) {
+    const [search, setSearch] = useState<string>('')
+    teste = search
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        alert(search)
+
+        if (search.length > 0 && search.length < 3) {
+            toast.warning("Enter at least 3 characters to search.")
+        } else {
+            onSearch(search)
+        }
     }
 
     return (
         <div className={styles.searchContainer}>
             <form onSubmit={handleSubmit}>
                 <input
-                    placeholder="Search pokémon"
+                    placeholder="Search your pokémon"
                     type="text"
                     value={search}
                     onChange={event => setSearch(event.target.value)}
                 />
-                <button type="submit">Search</button>
+                <button type="submit">
+                    <Icon iconName="pokeball" />
+                </button>
             </form>
         </div>
     )

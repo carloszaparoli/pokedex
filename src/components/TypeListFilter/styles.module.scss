@@ -1,0 +1,13 @@
+.typeFilterList {
+    max-width: 900px; 
+    margin: 0 auto;
+    margin-bottom: 2rem;
+
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    > div {
+        margin: 0 1rem 1rem 1rem;
+    }
+}

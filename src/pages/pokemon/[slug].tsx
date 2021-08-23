@@ -2,6 +2,7 @@ import { GetServerSideProps } from "next"
 import Head from "next/head"
 import { EvolutionChain } from "../../components/EvolutionChain"
 import { Header } from "../../components/Header"
+import { Icon } from "../../components/Icon"
 import { StatList } from "../../components/StatList"
 import { api } from "../../services/api"
 import { capitalizeText } from "../../utils/capitalizeText"
@@ -81,7 +82,7 @@ export default function PokemonPage({ pokemon }: PokemonPageProps) {
                             <ul className={styles.typeList}>
                                 {pokemon.types.map(type => (
                                     <li key={type.name} className={styles[type.name]}>
-                                        <img src={`/images/types/${type.name}.svg`} alt={type.name} height={16} />
+                                        <Icon iconName={type.name} width={16} height={16}/>
                                         {type.name}
                                     </li>
                                 ))}
@@ -151,11 +152,11 @@ export default function PokemonPage({ pokemon }: PokemonPageProps) {
                                         ?
                                         <>
                                             <span className={styles.maleText}>
-                                                <img src="/images/male.svg" alt="Male" height={16} />
+                                                <Icon iconName="male" height={16} width={10}/>
                                                 {pokemon.maleRatio}%
                                             </span>
                                             , <span className={styles.femaleText}>
-                                                <img src="/images/female.svg" alt="Female" height={16} />
+                                                <Icon iconName="female" height={16} width={15}/>
                                                 {pokemon.femaleRatio}%
                                             </span>
                                         </>
@@ -197,7 +198,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         .then(resp => resp.data)
         .catch(err => err.data)
 
-    const pokemonSpecieData = await api.get(`pokemon-species/${context.params.slug}`)
+    const pokemonSpecieData = await api.get(`pokemon-species/${pokemonData.species.name}`)
         .then(resp => resp.data)
         .catch(err => err.data)
 
@@ -276,7 +277,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         evoChain.push({
             id: pokeSpecieEvo.id,
             idAsString: ('000' + pokeSpecieEvo.id).slice(-3),
-            name: evoData.species.name[0].toUpperCase() + evoData.species.name.substr(1),
+            name: capitalizeText(evoData.species.name.replace(/-/g, ' ')),
             nameLowerCase: evoData.species.name,
             image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokeSpecieEvo.id}.png`,
             minLevel: !evoData.evolution_details[0] ? 1 : evoData.evolution_details[0].min_level,
@@ -317,7 +318,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     const pokemon: Pokemon = {
         id: pokemonData.id,
         idAsString: ('000' + pokemonData.id).slice(-3),
-        name: capitalizeText(pokemonData.name),
+        name: capitalizeText(pokemonData.name.replace(/-/g, ' ')),
         image: pokemonData.sprites.other["official-artwork"].front_default,
         description: flavorTextEntries.flavor_text,
         types: types,

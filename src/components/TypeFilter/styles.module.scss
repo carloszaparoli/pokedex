@@ -1,0 +1,383 @@
+.typeFilter {
+    background: transparent;
+    border: 0;
+
+    span {
+        font-size: 0.75rem;
+        color: var(--grey-300);
+    }
+
+    div {
+        width: 50px;
+        height: 50px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        border-radius: 10rem;
+        margin-bottom: .25rem;
+        cursor: pointer;
+        transition: all .2s;
+
+        border: 1px solid var(--grey-100);
+        background-color: var(--white);
+
+        svg {
+            transition: all .2s;
+        }
+    }
+
+    &.selected {
+
+        span {
+            font-weight: 500;
+        }
+
+        &.Bug {
+            div {
+                background-color: var(--type-bug);
+                border-color: var(--type-bug);
+            }
+        }
+
+        &.Dark {
+            div {
+                background-color: var(--type-dark);
+                border-color: var(--type-dark);
+            }
+        }
+
+        &.Dragon {
+            div {
+                background-color: var(--type-dragon);
+                border-color: var(--type-dragon);
+            }
+        }
+
+        &.Electric {
+            div {
+                background-color: var(--type-electric);
+                border-color: var(--type-electric);
+            }
+        }
+
+        &.Fairy {
+            div {
+                background-color: var(--type-fairy);
+                border-color: var(--type-fairy);
+            }
+        }
+
+        &.Fighting {
+            div {
+                background-color: var(--type-fighting);
+                border-color: var(--type-fighting);
+            }
+        }
+
+        &.Fire {
+            div {
+                background-color: var(--type-fire);
+                border-color: var(--type-fire);
+            }
+        }
+
+        &.Flying {
+            div {
+                background-color: var(--type-flying);
+                border-color: var(--type-flying);
+            }
+        }
+
+        &.Ghost {
+            div {
+                background-color: var(--type-ghost);
+                border-color: var(--type-ghost);
+            }
+        }
+
+        &.Grass {
+            div {
+                background-color: var(--type-grass);
+                border-color: var(--type-grass);
+            }
+        }
+
+        &.Ground {
+            div {
+                background-color: var(--type-ground);
+                border-color: var(--type-ground);
+            }
+        }
+
+        &.Ice {
+            div {
+                background-color: var(--type-ice);
+                border-color: var(--type-ice);
+            }
+        }
+
+        &.Normal {
+            div {
+                background-color: var(--type-normal);
+                border-color: var(--type-normal);
+            }
+        }
+
+        &.Poison {
+            div {
+                background-color: var(--type-poison);
+                border-color: var(--type-poison);
+            }
+        }
+
+        &.Psychic {
+            div {
+                background-color: var(--type-psychic);
+                border-color: var(--type-psychic);
+            }
+        }
+
+        &.Rock {
+            div {
+                background-color: var(--type-rock);
+                border-color: var(--type-rock);
+            }
+        }
+
+        &.Steel {
+            div {
+                background-color: var(--type-steel);
+                border-color: var(--type-steel);
+            }
+        }
+
+        &.Water {
+            div {
+                background-color: var(--type-water);
+                border-color: var(--type-water);
+            }
+        }
+
+        svg {
+            fill: var(--white) !important;
+        }
+    }
+
+    &.Bug {
+        svg {
+            fill: var(--type-bug);
+        }
+
+        &:hover {
+            div {
+                border-color: var(--type-bug);
+            }
+        }
+    }
+
+    &.Dark {
+        svg {
+            fill: var(--type-dark);
+        }
+
+        &:hover {
+            div {
+                border-color: var(--type-dark);
+            }
+        }
+    }
+
+    &.Dragon {
+        svg {
+            fill: var(--type-dragon);
+        }
+
+        &:hover {
+            div {
+                border-color: var(--type-dragon);
+            }
+        }
+    }
+
+    &.Electric {
+        svg {
+            fill: var(--type-electric);
+        }
+
+        &:hover {
+            div {
+                border-color: var(--type-electric);
+            }
+        }
+    }
+
+    &.Fairy {
+        svg {
+            fill: var(--type-fairy);
+        }
+
+        &:hover {
+            div {
+                border-color: var(--type-fairy);
+            }
+        }
+    }
+
+    &.Fighting {
+        svg {
+            fill: var(--type-fighting);
+        }
+
+        &:hover {
+            div {
+                border-color: var(--type-fighting);
+            }
+        }
+    }
+
+    &.Fire {
+        svg {
+            fill: var(--type-fire);
+        }
+
+        &:hover {
+            div {
+                border-color: var(--type-fire);
+            }
+        }
+    }
+
+    &.Flying {
+        svg {
+            fill: var(--type-flying);
+        }
+
+        &:hover {
+            div {
+                border-color: var(--type-flying);
+            }
+        }
+    }
+
+    &.Ghost {
+        svg {
+            fill: var(--type-ghost);
+        }
+
+        &:hover {
+            div {
+                border-color: var(--type-ghost);
+            }
+        }
+    }
+
+    &.Grass {
+        svg {
+            fill: var(--type-grass);
+        }
+
+        &:hover {
+            div {
+                border-color: var(--type-grass);
+            }
+        }
+    }
+
+    &.Ground {
+        svg {
+            fill: var(--type-ground);
+        }
+
+        &:hover {
+            div {
+                border-color: var(--type-ground);
+            }
+        }
+    }
+
+    &.Ice {
+        svg {
+            fill: var(--type-ice);
+        }
+
+        &:hover {
+            div {
+                border-color: var(--type-ice);
+            }
+        }
+    }
+
+    &.Normal {
+        svg {
+            fill: var(--type-normal);
+        }
+
+        &:hover {
+            div {
+                border-color: var(--type-normal);
+            }
+        }
+    }
+
+    &.Poison {
+        svg {
+            fill: var(--type-poison);
+        }
+
+        &:hover {
+            div {
+                border-color: var(--type-poison);
+            }
+        }
+    }
+
+    &.Psychic {
+        svg {
+            fill: var(--type-psychic);
+        }
+
+        &:hover {
+            div {
+                border-color: var(--type-psychic);
+            }
+        }
+    }
+
+    &.Rock {
+        svg {
+            fill: var(--type-rock);
+        }
+
+        &:hover {
+            div {
+                border-color: var(--type-rock);
+            }
+        }
+    }
+
+    &.Steel {
+        svg {
+            fill: var(--type-steel);
+        }
+
+        &:hover {
+            div {
+                border-color: var(--type-steel);
+            }
+        }
+    }
+
+    &.Water {
+        svg {
+            fill: var(--type-water);
+        }
+
+        &:hover {
+            div {
+                border-color: var(--type-water);
+            }
+        }
+    }
+}
