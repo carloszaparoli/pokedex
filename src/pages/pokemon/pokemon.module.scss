@@ -8,15 +8,48 @@
     background-size: 250px;
 
     .header {
+        position: relative;
         padding: 2rem;
-        padding-bottom: 0;
+
+        .backContainer {
+            .linkBack {
+                position: absolute;
+                left: 2rem;
+                transition: opacity .2s;
+
+                svg {
+                    transform: rotate(180deg);
+    
+                    fill: var(--white);
+                }
+
+                &:hover {
+                    opacity: 0.5;
+                }
+            }
+        }
 
         .headerWrapper {
             display: flex;
-            justify-content: space-between;
+            justify-content: space-around;
+            align-items: center;
+
+            .pokemonImage {
+                display: block;
+                max-width: 220px;
+            }
+
+            .number {
+                display: block;
+                font-weight: 600;
+                font-size: 1.25rem;
+                color: #17171B99;
+            }
 
             .title {
                 margin-bottom: .5rem;
+                font-size: 2rem;
+                
                 color: var(--white);
             }
 
@@ -109,20 +142,12 @@
                     }
                 }
             }
-
-            .number {
-                display: block;
-                font-weight: 600;
-                font-size: 1.25rem;
-                color: #17171B99;
-            }
         }
 
-        .pokemonImage {
-            display: block;
-            max-width: 240px;
-            margin: 0 auto;
-            margin-bottom: -3rem;
+        .patternIcon {
+            position: absolute;
+            left: 2rem;
+            bottom: 0;
         }
     }
 

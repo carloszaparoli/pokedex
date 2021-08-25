@@ -162,7 +162,7 @@ export function PokemonList() {
                 pokemonList = allPokemons.filter(pokemon => pokemon.name.toLowerCase().indexOf(text.toLowerCase()) > -1)
             }
             setFilteredPokemons(pokemonList)
-            loadPokemons(pokemonList, true)
+            loadPokemons(pokemonList.slice(0, numberPokemonsToShow), true)
         }
     }
 

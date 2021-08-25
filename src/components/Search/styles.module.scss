@@ -11,14 +11,13 @@
             flex: 1;
             padding: 0 1rem;
             height: 3rem;
-            background-color: var(--white);
-            border: 0;
-            box-shadow: 0px 3px 6px var(--grey-100);
-            color: var(--grey-300);
-            border-right: 0;
+            width: 100%;
             border-radius: 0.5rem;
             outline: none;
-            width: 100%;
+
+            color: var(--grey-300);
+            border: 1px solid var(--grey-100);
+            background-color: var(--white);
 
             &::placeholder {
                 color: #b1b1b1;
@@ -48,7 +47,12 @@
 
             background: var(--red-300);
             color: var(--white);
-            box-shadow: 0px 3px 9px var(--red-300);
+            transition: all .2s;
+
+            &:hover {
+                background: var(--red-350);
+                box-shadow: 0px 3px 6px var(--red-300);
+            }
 
             svg {
                 width: 1.25rem;

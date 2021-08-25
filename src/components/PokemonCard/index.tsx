@@ -25,7 +25,7 @@ export function PokemonCard({ pokemon }: PokemonCardProps) {
             <Link href={'pokemon/' + pokemon.nameLowerCase}>
                 <a className={styles[pokemon.types[0].name]}>
                     <div>
-                        <img src="/images/pattern.svg" className={styles.patternImage} alt="pattern" />
+                        <Icon iconName="pattern" width={74} height={32} className={styles.patternIcon} />
                         <span className={styles.number}>#{pokemon.idAsString}</span>
                         <h3 className={styles.name}>{pokemon.name}</h3>
                         <ul className={styles.typeList}>

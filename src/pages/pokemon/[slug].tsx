@@ -1,5 +1,6 @@
 import { GetServerSideProps } from "next"
 import Head from "next/head"
+import Link from "next/link"
 import { EvolutionChain } from "../../components/EvolutionChain"
 import { Header } from "../../components/Header"
 import { Icon } from "../../components/Icon"
@@ -68,6 +69,7 @@ type PokemonPageProps = {
 }
 
 export default function PokemonPage({ pokemon }: PokemonPageProps) {
+
     return (
         <>
             <Head>
@@ -76,21 +78,29 @@ export default function PokemonPage({ pokemon }: PokemonPageProps) {
             <Header />
             <main className={`${styles.pokemonContainer} ${styles[pokemon.types[0].name]}`}>
                 <div className={styles.header}>
+                    <div className={styles.backContainer}>
+                        <Link href="/">
+                            <a className={styles.linkBack}>
+                                <Icon iconName="arrow-right" width={24} height={24} />
+                            </a>
+                        </Link>
+                    </div>
                     <div className={styles.headerWrapper}>
                         <div>
+                            <span className={styles.number}>#{pokemon.idAsString}</span>
                             <h1 className={styles.title}>{pokemon.name}</h1>
                             <ul className={styles.typeList}>
                                 {pokemon.types.map(type => (
                                     <li key={type.name} className={styles[type.name]}>
-                                        <Icon iconName={type.name} width={16} height={16}/>
+                                        <Icon iconName={type.name} width={16} height={16} />
                                         {type.name}
                                     </li>
                                 ))}
                             </ul>
                         </div>
-                        <span className={styles.number}>#{pokemon.idAsString}</span>
+                        <img src={pokemon.image} className={styles.pokemonImage} alt={pokemon.name} />
                     </div>
-                    <img src={pokemon.image} className={styles.pokemonImage} alt={pokemon.name} />
+                    <Icon iconName="pattern" width={140} height={60} className={styles.patternIcon}/>
                 </div>
                 <div className={styles.pokemonData}>
                     <p className={styles.description}>{pokemon.description}</p>
@@ -152,11 +162,11 @@ export default function PokemonPage({ pokemon }: PokemonPageProps) {
                                         ?
                                         <>
                                             <span className={styles.maleText}>
-                                                <Icon iconName="male" height={16} width={10}/>
+                                                <Icon iconName="male" height={16} width={10} />
                                                 {pokemon.maleRatio}%
                                             </span>
                                             , <span className={styles.femaleText}>
-                                                <Icon iconName="female" height={16} width={15}/>
+                                                <Icon iconName="female" height={16} width={15} />
                                                 {pokemon.femaleRatio}%
                                             </span>
                                         </>
@@ -194,13 +204,13 @@ export default function PokemonPage({ pokemon }: PokemonPageProps) {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
+
+
     const pokemonData = await api.get(`pokemon/${context.params.slug}`)
         .then(resp => resp.data)
-        .catch(err => err.data)
 
     const pokemonSpecieData = await api.get(`pokemon-species/${pokemonData.species.name}`)
         .then(resp => resp.data)
-        .catch(err => err.data)
 
     const evolutionChainData = await api.get(pokemonSpecieData.evolution_chain.url)
         .then(resp => resp.data)
