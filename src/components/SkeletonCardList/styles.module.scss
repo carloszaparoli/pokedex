@@ -10,9 +10,9 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        height: 112px;
+        height: 7rem;
         padding: 1.5rem;
-        border-radius: 5px;
+        border-radius: 0.3125rem;
 
         background-color: var(--white);
 
@@ -25,5 +25,17 @@
                 gap: 0.125rem;
             }
         }
+    }
+}
+
+@media(max-width: 960px) {
+    .skeletonCardList {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media(max-width: 670px) {
+    .skeletonCardList {
+        grid-template-columns: repeat(1, 1fr);
     }
 }

@@ -1,3 +1,4 @@
+import Image from "next/image"
 import Link from "next/link"
 import { Icon } from "../Icon"
 
@@ -40,16 +41,17 @@ export function EvolutionChain({ evolutionChain }: EvolutionChainProps) {
             {evolutions.map(pokemon => (
                 <li key={pokemon[0].nameLowerCase}>
                     <div className={styles.pokemon}>
-                        <img src="/images/pokeball-grey-gradient.svg" 
-                            className={styles.pokeballImage} 
+                        <img src="/images/pokeball-grey-gradient.svg"
+                            className={styles.pokeballImage}
                             alt="Evolution"
                         />
                         <Link href={'/pokemon/' + pokemon[0].nameLowerCase}>
                             <a>
                                 <div className={styles.imageContainer}>
-                                    <img src={pokemon[0].image}
+                                    <Image src={pokemon[0].image}
+                                        width={132}
+                                        height={132}
                                         alt={pokemon[0].name}
-                                        className={styles.image}
                                     />
                                 </div>
                                 <div>
@@ -60,28 +62,29 @@ export function EvolutionChain({ evolutionChain }: EvolutionChainProps) {
                         </Link>
                     </div>
                     <div className={styles.evolvesTo}>
-                        <Icon className={styles.arrowImage} iconName="arrow-right" width={20} height={21} />
+                        <Icon className={styles.arrowImage} iconName="arrow-right" />
                         {pokemon[1].minLevel != null &&
                             <span>Level {pokemon[1].minLevel}</span>
                         }
                         {pokemon[1].item != null &&
                             <div className={styles.evolutionItem}>
-                                <img src={pokemon[1].imageItem} alt={pokemon[1].item} />
+                                <Image src={pokemon[1].imageItem} width={30} height={30} alt={pokemon[1].item}  />
                                 <span>{pokemon[1].item}</span>
                             </div>
                         }
                     </div>
                     <div className={styles.pokemon}>
-                        <img src="/images/pokeball-grey-gradient.svg" 
-                            className={styles.pokeballImage} 
+                        <img src="/images/pokeball-grey-gradient.svg"
+                            className={styles.pokeballImage}
                             alt="Evolution"
                         />
                         <Link href={'/pokemon/' + pokemon[1].nameLowerCase}>
                             <a>
                                 <div className={styles.imageContainer}>
-                                    <img src={pokemon[1].image}
+                                    <Image src={pokemon[1].image}
+                                        width={132}
+                                        height={132}
                                         alt={pokemon[1].name}
-                                        className={styles.image}
                                     />
                                 </div>
                                 <div>

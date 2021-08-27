@@ -1,13 +1,30 @@
 .header {
     height: 4rem;
+    max-width: 1024px;
+    margin: 0 auto;
     margin-top: 1rem;
     padding: 0 2rem;
     border-radius: 0.5rem;
-
+    
     display: flex;
     align-items: center;
     justify-content: center;
 
     background: var(--white);
     box-shadow: 0px 3px 6px var(--grey-100);
+
+    img {
+        width: 10rem;
+    }
+
+    a, img {
+        display: block;
+    }
+}
+
+@media (max-width: 700px) {
+    .header {
+        margin: 0;
+        border-radius: 0;
+    }
 }

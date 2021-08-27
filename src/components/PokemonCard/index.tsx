@@ -1,4 +1,5 @@
 import Link from "next/link"
+import Image from 'next/image'
 import { Icon } from "../Icon"
 import styles from "./styles.module.scss"
 
@@ -25,23 +26,25 @@ export function PokemonCard({ pokemon }: PokemonCardProps) {
             <Link href={'pokemon/' + pokemon.nameLowerCase}>
                 <a className={styles[pokemon.types[0].name]}>
                     <div>
-                        <Icon iconName="pattern" width={74} height={32} className={styles.patternIcon} />
+                        <Icon iconName="pattern" className={styles.patternIcon} />
                         <span className={styles.number}>#{pokemon.idAsString}</span>
                         <h3 className={styles.name}>{pokemon.name}</h3>
                         <ul className={styles.typeList}>
                             {pokemon.types.map(type => (
                                 <li key={type.name} className={styles[type.name]}>
-                                    <Icon iconName={type.name} width={12} height={12}/>
+                                    <Icon iconName={type.name} />
                                     {type.name}
                                 </li>
                             ))}
                         </ul>
                     </div>
-                    <img src={pokemon.image}
-                        alt={pokemon.name}
-                        width={130}
-                        className={styles.image}
-                    />
+                    <div className={styles.image}>
+                        <Image src={pokemon.image as any}
+                            width={130}
+                            height={130}
+                            alt={pokemon.name}                            
+                            objectFit="initial" />
+                    </div>
                 </a>
             </Link>
         </li>

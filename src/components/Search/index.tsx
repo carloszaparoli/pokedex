@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { ChangeEventHandler, FormEvent, useState } from 'react'
 import { toast } from 'react-toastify'
 import { Icon } from '../Icon'
 
@@ -8,13 +8,10 @@ type SearchProps = {
     onSearch: (text: string) => void;
 }
 
-export let teste  = ""
-
 export function Search({ onSearch }: SearchProps) {
     const [search, setSearch] = useState<string>('')
-    teste = search
 
-    const handleSubmit = (event) => {
+    const handleSubmit = (event: FormEvent) => {
         event.preventDefault()
 
         if (search.length > 0 && search.length < 3) {

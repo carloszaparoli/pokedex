@@ -1,13 +1,37 @@
-.typeFilterList {
-    max-width: 900px; 
-    margin: 0 auto;
-    margin-bottom: 2rem;
+.scrollList {
+    .typeFilterList {
+        max-width: 900px;
+        margin: 0 auto;
+        margin-bottom: 2rem;
 
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
 
-    > div {
-        margin: 0 1rem 1rem 1rem;
+        >div {
+            margin: 0 1rem 1rem 1rem;
+
+            &:last-child {
+                margin-right: 0;
+            }
+    
+            &:first-child {
+                margin-left: 0;
+            }
+        }
+    }
+}
+
+@media (max-width: 640px) {
+    .scrollList {
+        overflow: auto;
+        margin-bottom: 1rem;
+
+        .typeFilterList {
+            max-width: 100%;
+            margin-bottom: 0;
+            flex-wrap: nowrap;
+            justify-content: start;
+        }
     }
 }

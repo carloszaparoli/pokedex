@@ -11,21 +11,26 @@
         padding: 1.25rem;
         background: url('/images/pokeball.svg') no-repeat;
         background-position: top right;
-        background-size: 145px;
-        border-radius: 5px;
+        background-size: 9rem;
+        border-radius: 0.3125rem;
 
         .image {
             display: block;
             margin: 0 auto;
             position: absolute;
-            top: -20px;
-            right: 20px;               
+            top: -1.25rem;
+            right: 1.25rem;
+
+            img {
+                width: 8.125rem;
+            }
         }
 
         .patternIcon {
+            width: 4.625rem;
             position: absolute;
-            top: 5px;
-            left: 80px;
+            top: 0.3125rem;
+            left: 5rem;
         }
 
         .number {
@@ -59,6 +64,8 @@
                 color: var(--white);
 
                 svg {
+                    width: 0.75rem;
+                    height: 0.75rem;
                     margin-right: .25rem;
                     fill: var(--white);
                 }

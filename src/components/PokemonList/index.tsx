@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { api } from "../../services/api"
 import { capitalizeText } from '../../utils/capitalizeText'
+import { Icon } from "../Icon"
 import { PokemonCard } from '../PokemonCard'
 import { Search } from '../Search'
 import { SkeletonCardList } from "../SkeletonCardList"
@@ -37,6 +38,7 @@ export function PokemonList() {
     const [pokemons, setPokemons] = useState<Pokemon[]>([])
     const [to, setTo] = useState<number>(0)
     const [loading, setLoading] = useState(true)
+    const [isLoadingMore, setIsLoadingMore] = useState(false)
     const numberPokemonsToShow = 15;
 
     useEffect(() => {
@@ -87,7 +89,7 @@ export function PokemonList() {
         }
 
         setPokemons(pokemonList)
-        setLoading(false)
+        setLoading(false)        
     }
 
     async function getPokemonUrl(url: string) {
@@ -99,7 +101,9 @@ export function PokemonList() {
     }
 
     async function loadMore() {
+        setIsLoadingMore(true)
         await loadPokemons(filteredPokemons.slice(to, to + numberPokemonsToShow))
+        setIsLoadingMore(false)
     }
 
     async function filterByType(type: string) {
@@ -120,18 +124,18 @@ export function PokemonList() {
             setBackupListPokemons(pokemons)
             setFilteredPokemons(pokemons)
 
-            if(searchText !== "") {
+            if (searchText !== "") {
                 let pokemonsList = pokemons.filter(pokemon => pokemon.name.toLowerCase().indexOf(searchText.toLowerCase()) > -1)
                 setFilteredPokemons(pokemonsList)
                 loadPokemons(pokemonsList.slice(0, numberPokemonsToShow), true)
             } else {
                 loadPokemons(pokemons.slice(0, numberPokemonsToShow), true)
             }
-            
+
         } else {
             setTypeIsSelected(false)
             console.log(searchText)
-            if(searchText !== "") {
+            if (searchText !== "") {
                 let pokemonsList = allPokemons.filter(pokemon => pokemon.name.toLowerCase().indexOf(searchText.toLowerCase()) > -1)
                 setFilteredPokemons(pokemonsList)
                 loadPokemons(pokemonsList.slice(0, numberPokemonsToShow), true)
@@ -146,19 +150,19 @@ export function PokemonList() {
         setSearchText(text)
         if (text.length == 0) {
             setTo(15)
-            if(typeIsSelected) {
+            if (typeIsSelected) {
                 setFilteredPokemons(backupListPokemons)
                 loadPokemons(backupListPokemons.slice(0, numberPokemonsToShow), true)
             } else {
                 setFilteredPokemons(allPokemons)
                 loadPokemons(allPokemons.slice(0, numberPokemonsToShow), true)
             }
-            
+
         } else {
             let pokemonList = []
-            if(typeIsSelected) {
-                pokemonList= backupListPokemons.filter(pokemon => pokemon.name.toLowerCase().indexOf(text.toLowerCase()) > -1)
-            } else {                
+            if (typeIsSelected) {
+                pokemonList = backupListPokemons.filter(pokemon => pokemon.name.toLowerCase().indexOf(text.toLowerCase()) > -1)
+            } else {
                 pokemonList = allPokemons.filter(pokemon => pokemon.name.toLowerCase().indexOf(text.toLowerCase()) > -1)
             }
             setFilteredPokemons(pokemonList)
@@ -182,7 +186,17 @@ export function PokemonList() {
                                 ))}
                             </ul>
                             {pokemons.length < filteredPokemons.length
-                                && <button className={styles.btnLoadMore} onClick={() => loadMore()}>Load more</button>
+                                && <div className={styles.containerLoadMore}>
+                                    {isLoadingMore
+                                        &&
+                                        <div className={styles.loadIcon}>
+                                            <Icon iconName="pokeball" />
+                                        </div>
+                                    }
+                                    <button onClick={() => loadMore()}>
+                                        Load more
+                                    </button>
+                                </div>
                             }
                         </>
 

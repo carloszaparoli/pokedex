@@ -1,5 +1,6 @@
 import { GetServerSideProps } from "next"
 import Head from "next/head"
+import Image from "next/image"
 import Link from "next/link"
 import { EvolutionChain } from "../../components/EvolutionChain"
 import { Header } from "../../components/Header"
@@ -80,8 +81,8 @@ export default function PokemonPage({ pokemon }: PokemonPageProps) {
                 <div className={styles.header}>
                     <div className={styles.backContainer}>
                         <Link href="/">
-                            <a className={styles.linkBack}>
-                                <Icon iconName="arrow-right" width={24} height={24} />
+                            <a className={styles.linkBack} title="Go back">
+                                <Icon iconName="arrow-right" />
                             </a>
                         </Link>
                     </div>
@@ -92,19 +93,20 @@ export default function PokemonPage({ pokemon }: PokemonPageProps) {
                             <ul className={styles.typeList}>
                                 {pokemon.types.map(type => (
                                     <li key={type.name} className={styles[type.name]}>
-                                        <Icon iconName={type.name} width={16} height={16} />
+                                        <Icon iconName={type.name} />
                                         {type.name}
                                     </li>
                                 ))}
                             </ul>
                         </div>
-                        <img src={pokemon.image} className={styles.pokemonImage} alt={pokemon.name} />
+                        <div className={styles.pokemonImage}>
+                            <Image src={pokemon.image} width={220} height={220} alt={pokemon.name} />
+                        </div>
                     </div>
-                    <Icon iconName="pattern" width={140} height={60} className={styles.patternIcon}/>
+                    <Icon iconName="pattern" className={styles.patternIcon} />
                 </div>
                 <div className={styles.pokemonData}>
                     <p className={styles.description}>{pokemon.description}</p>
-
                     <section>
                         <p className={styles.titleSection}>Pokédex Data</p>
                         <ul className={styles.pokedexDataList}>
@@ -133,7 +135,6 @@ export default function PokemonPage({ pokemon }: PokemonPageProps) {
                             </li>
                         </ul>
                     </section>
-
                     <section>
                         <p className={styles.titleSection}>Training</p>
                         <ul className={styles.trainingList}>
@@ -151,7 +152,6 @@ export default function PokemonPage({ pokemon }: PokemonPageProps) {
                             </li>
                         </ul>
                     </section>
-
                     <section>
                         <p className={styles.titleSection}>Breeding</p>
                         <ul className={styles.breedingList}>
@@ -162,11 +162,11 @@ export default function PokemonPage({ pokemon }: PokemonPageProps) {
                                         ?
                                         <>
                                             <span className={styles.maleText}>
-                                                <Icon iconName="male" height={16} width={10} />
+                                                <Icon iconName="male" />
                                                 {pokemon.maleRatio}%
                                             </span>
                                             , <span className={styles.femaleText}>
-                                                <Icon iconName="female" height={16} width={15} />
+                                                <Icon iconName="female" />
                                                 {pokemon.femaleRatio}%
                                             </span>
                                         </>
@@ -187,12 +187,10 @@ export default function PokemonPage({ pokemon }: PokemonPageProps) {
                             </li>
                         </ul>
                     </section>
-
                     <section>
                         <p className={styles.titleSection}>Base Stats</p>
                         <StatList stats={pokemon.stats} pokemonType={pokemon.types[0].name} />
                     </section>
-
                     <section>
                         <p className={styles.titleSection}>Evolutions</p>
                         <EvolutionChain evolutionChain={pokemon.evolutionChain} />
@@ -204,7 +202,6 @@ export default function PokemonPage({ pokemon }: PokemonPageProps) {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-
 
     const pokemonData = await api.get(`pokemon/${context.params.slug}`)
         .then(resp => resp.data)

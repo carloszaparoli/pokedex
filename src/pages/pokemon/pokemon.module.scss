@@ -5,7 +5,7 @@
 
     background: url('/images/pokeball.svg') no-repeat;
     background-position: right -1.5rem top -1.5rem;
-    background-size: 250px;
+    background-size: 16rem;
 
     .header {
         position: relative;
@@ -15,11 +15,15 @@
             .linkBack {
                 position: absolute;
                 left: 2rem;
+                top: 2rem;
+                z-index: 3;
                 transition: opacity .2s;
 
                 svg {
+                    width: 1.5rem;
+                    height: 1.5rem;
                     transform: rotate(180deg);
-    
+
                     fill: var(--white);
                 }
 
@@ -33,10 +37,12 @@
             display: flex;
             justify-content: space-around;
             align-items: center;
+            position: inherit;
+            z-index: 2;
 
             .pokemonImage {
-                display: block;
-                max-width: 220px;
+                display: flex;
+                max-width: 13.75rem;
             }
 
             .number {
@@ -49,7 +55,7 @@
             .title {
                 margin-bottom: .5rem;
                 font-size: 2rem;
-                
+
                 color: var(--white);
             }
 
@@ -66,6 +72,9 @@
 
                     svg {
                         margin-right: .25rem;
+                        width: 1rem;
+                        height: 1rem;
+
                         fill: var(--white);
                     }
 
@@ -148,6 +157,7 @@
             position: absolute;
             left: 2rem;
             bottom: 0;
+            width: 8.75rem;
         }
     }
 
@@ -180,7 +190,7 @@
         .pokedexDataList,
         .trainingList,
         .breedingList {
-            > li {
+            >li {
                 display: flex;
                 align-items: center;
                 margin-bottom: 1.25rem;
@@ -221,12 +231,14 @@
         }
 
         .breedingList {
+
             .maleText,
             .femaleText {
                 font-size: 1.125rem;
                 font-weight: 500;
 
                 svg {
+                    height: 1rem;
                     margin-right: .25rem;
                 }
             }
@@ -238,7 +250,7 @@
             .femaleText {
                 color: var(--type-fairy);
             }
-        } 
+        }
     }
 
     &.Bug {
@@ -454,6 +466,37 @@
 
         .progressBarValue {
             background-color: var(--type-water);
+        }
+    }
+}
+
+@media (max-width: 700px) {
+    .pokemonContainer {
+        margin: 0;
+        border-radius: 0 0 1rem 1rem;
+
+        .header {
+            .backContainer {
+                margin-bottom: 1rem;
+
+                .linkBack {
+                    position: initial;
+                    display: inline-block;
+                }
+            }
+
+            .headerWrapper {
+                justify-content: space-between;
+
+                .pokemonImage {
+                    width: 10.75rem;
+                }
+            }
+        }
+
+        .pokemonData {
+            border: 0;
+            border-radius: 2rem 2rem 0 0;
         }
     }
 }

@@ -112,6 +112,10 @@
         &:nth-child(5) {
             text-align: right;
         }
+
+        &:last-child {
+            padding-right: 0;
+        }
     }
 
     tfoot {
@@ -131,4 +135,32 @@
 
 .infoText {
     font-size: 0.875rem;
+}
+
+@media (max-width: 720px) {
+    .statsTable {
+        table-layout: auto;
+    }
+}
+
+@media (max-width: 320px) {
+    .statsTable {
+        td {
+            &:nth-child(3) {
+                display: none;
+            }
+        }
+    }
+}
+
+
+
+@media (max-width: 320px) {
+    .statsTable {
+        td {
+            &:nth-child(3) {
+                display: none;
+            }
+        }
+    }
 }

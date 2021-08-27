@@ -26,12 +26,14 @@ export function TypeListFilter({ onFilter }: TypeListFilterProps) {
     }
 
     return (
-        <ul className={styles.typeFilterList}>
-            {types.map(type => (
-                <div key={type}>
-                    <TypeFilter type={type} selected={selected} onSelect={selectType} />
-                </div>
-            ))}
-        </ul>
+        <div className={styles.scrollList}>
+            <ul className={styles.typeFilterList}>
+                {types.map(type => (
+                    <div key={type}>
+                        <TypeFilter type={type} selected={selected} onSelect={selectType} />
+                    </div>
+                ))}
+            </ul>
+        </div>
     )
 }

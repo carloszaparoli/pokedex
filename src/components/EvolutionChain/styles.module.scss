@@ -16,6 +16,8 @@
             .pokeballImage {
                 position: absolute;
                 width: 9.75rem;
+                left: 50%;
+                transform: translate(-50%, 0);
             }
 
             a {
@@ -25,12 +27,7 @@
 
                 .imageContainer {
                     padding: 0.75rem;
-
-                    .image {
-                        width: 8.25rem;
-                    }
                 }
-                
 
                 .number {
                     font-size: 0.875rem;
@@ -50,6 +47,8 @@
             text-align: center;
 
             .arrowImage {
+                width: 1.25rem;
+
                 fill: var(--grey-300);
                 filter: opacity(0.3);
             }
@@ -68,12 +67,33 @@
                 align-items: center;
                 margin-top: .5rem;
 
-                img {
-                    margin-right: .25rem;
-                }
-
                 span {
                     margin: 0;
+                    margin-left: .25rem;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 700px) {
+    .evolutionChainList {
+        li {
+            .pokemon {
+                width: 7.75rem;
+    
+                .pokeballImage {
+                    width: 7.75rem;
+                }
+            }
+
+            .evolvesTo {
+                .evolutionItem {
+                    flex-direction: column;
+    
+                    span {
+                        margin: 0;
+                    }
                 }
             }
         }

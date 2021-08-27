@@ -7,15 +7,59 @@
     margin: 0 auto;
 }
 
-.btnLoadMore {
-    display: block;
-    height: 3rem;
-    padding: 0 3rem;
-    margin: 0 auto;
-    margin-top: 2rem;
-    border: 0;    
-    border-radius: .25rem;
+.containerLoadMore {
+    text-align: center;
+    position: relative;
+    
+    .loadIcon {
+        display: flex;
+        position: absolute;
+        left: 50%;
+        top: 1rem;
+        transform: translate(-50%, 0);
+        width: 1.5rem;
+        height: 1.5rem;
 
-    background: var(--red-300);
-    color: var(--white);
+        svg {
+            animation-name: spin;
+            animation-duration: 1000ms;
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+
+            fill: var(--grey-300);
+        }
+    }
+
+    @keyframes spin {
+        from {
+            transform: rotate(0deg);
+        }
+
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    button {
+        height: 3rem;
+        padding: 0 3rem;
+        border: 0;
+        border-radius: .25rem;
+        margin-top: 3.5rem;
+
+        background: var(--red-300);
+        color: var(--white);
+    }
+}
+
+@media(max-width: 960px) {
+    .pokemonList {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media(max-width: 670px) {
+    .pokemonList {
+        grid-template-columns: repeat(1, 1fr);
+    }
 }

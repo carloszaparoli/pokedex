@@ -13,12 +13,7 @@
     --grey-900: #17171B;
 
     --red-300: #EA5D60;
-    --red-350: #f04e54;
-
-    --cyan-200: #d3e9f6;
-    --cyan-300: #96d1f3;
-    --cyan-500: #7abfe9;
-    --yellow-500: #ff9a29;
+    --red-350: #F04E54;
 
     // Pokémon Types
     --type-bug: #8CB230;
@@ -76,8 +71,8 @@ body {
     background: var(--grey-50);
     color: var(--grey-300);
 
-    max-width: 1024px;
-    margin: 0 auto;
+    //max-width: 1024px;
+    //margin: 0 auto;
 }
 
 body, input, textarea, select, button {
