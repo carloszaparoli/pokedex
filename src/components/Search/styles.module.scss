@@ -1,6 +1,6 @@
 .searchContainer {
     width: 22rem;
-    margin: 3rem auto 2rem auto;
+    margin: 0 auto 2rem auto;
     display: flex;
     position: relative;
 
@@ -8,8 +8,11 @@
         width: 100%;
 
         input {
+            -webkit-appearance: none;
+            font-size: initial;
             flex: 1;
-            padding: 0 1rem;
+            padding-left: 1rem;
+            padding-right: 3rem;
             height: 3rem;
             width: 100%;
             border-radius: 0.5rem;
@@ -19,17 +22,26 @@
             border: 1px solid var(--grey-100);
             background-color: var(--white);
 
+            transition: all .2s;
+
+            &:focus {
+               border-color: var(--red-300); 
+            }
+
             &::placeholder {
-                color: #b1b1b1;
+                font-size: 1rem;
+                color: var(--grey-200);
                 opacity: 1;
             }
 
             &::-ms-input-placeholder {
-                color: #b1b1b1;
+                font-size: 1rem;
+                color: var(--grey-200);
             }
 
             &:-ms-input-placeholder {
-                color: #b1b1b1;
+                font-size: 1rem;
+                color: var(--grey-200);
             }
         }
 
@@ -51,7 +63,7 @@
 
             &:hover {
                 background: var(--red-350);
-                box-shadow: 0px 3px 6px var(--red-300);
+                box-shadow: 0rem 0.1875rem 0.375rem var(--red-300);
             }
 
             svg {

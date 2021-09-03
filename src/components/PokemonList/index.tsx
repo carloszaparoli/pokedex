@@ -1,3 +1,4 @@
+import Image from "next/image"
 import { useEffect, useState } from "react"
 import { api } from "../../services/api"
 import { capitalizeText } from '../../utils/capitalizeText'
@@ -6,6 +7,8 @@ import { PokemonCard } from '../PokemonCard'
 import { Search } from '../Search'
 import { SkeletonCardList } from "../SkeletonCardList"
 import { TypeListFilter } from "../TypeListFilter"
+
+import PsyduckImg from '../../../public/images/psyduck.svg'
 
 import styles from './styles.module.scss'
 
@@ -89,7 +92,7 @@ export function PokemonList() {
         }
 
         setPokemons(pokemonList)
-        setLoading(false)        
+        setLoading(false)
     }
 
     async function getPokemonUrl(url: string) {
@@ -161,9 +164,9 @@ export function PokemonList() {
         } else {
             let pokemonList = []
             if (typeIsSelected) {
-                pokemonList = backupListPokemons.filter(pokemon => pokemon.name.toLowerCase().indexOf(text.toLowerCase()) > -1)
+                pokemonList = backupListPokemons.filter(pokemon => pokemon.name.toLowerCase().replace(/-/g, ' ').indexOf(text.toLowerCase()) > -1)
             } else {
-                pokemonList = allPokemons.filter(pokemon => pokemon.name.toLowerCase().indexOf(text.toLowerCase()) > -1)
+                pokemonList = allPokemons.filter(pokemon => pokemon.name.toLowerCase().replace(/-/g, ' ').indexOf(text.toLowerCase()) > -1)
             }
             setFilteredPokemons(pokemonList)
             loadPokemons(pokemonList.slice(0, numberPokemonsToShow), true)
@@ -180,6 +183,13 @@ export function PokemonList() {
                     {pokemons.length > 0
                         ?
                         <>
+                            {searchText != '' &&
+                                <p className={styles.numberResultsSearch}>
+                                    <strong>{filteredPokemons.length} </strong>
+                                    results found for:
+                                    <strong> {searchText}</strong>
+                                </p>
+                            }
                             <ul className={styles.pokemonList}>
                                 {pokemons?.map(pokemon => (
                                     <PokemonCard key={pokemon.id} pokemon={pokemon} />
@@ -199,9 +209,21 @@ export function PokemonList() {
                                 </div>
                             }
                         </>
-
-                        : <p>No pokémon found.</p>}
-
+                        :
+                        <div className={styles.emptyMessage}>
+                            <div className={styles.imageContainer}>
+                                <Image src={PsyduckImg} />
+                            </div>
+                            <div className={styles.messageContainer}>
+                                <h4>No Pokemon matches your search!</h4>
+                                <p>Try these suggestions to find a Pokémon:</p>
+                                <ul>
+                                    <li>Reduce the number of search characters, enter at least 3 characters.</li>
+                                    <li>Filter by the type of Pokémon you want and then search by name.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    }
                 </>
                 :
                 <SkeletonCardList />

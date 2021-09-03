@@ -2,7 +2,7 @@
     .typeFilterList {
         max-width: 900px;
         margin: 0 auto;
-        margin-bottom: 2rem;
+        margin-bottom: 1rem;
 
         display: flex;
         justify-content: center;
@@ -10,14 +10,6 @@
 
         >div {
             margin: 0 1rem 1rem 1rem;
-
-            &:last-child {
-                margin-right: 0;
-            }
-    
-            &:first-child {
-                margin-left: 0;
-            }
         }
     }
 }
@@ -32,6 +24,16 @@
             margin-bottom: 0;
             flex-wrap: nowrap;
             justify-content: start;
+
+            >div {
+                &:last-child {
+                    margin-right: 0;
+                }
+    
+                &:first-child {
+                    margin-left: 0;
+                }
+            }
         }
     }
 }

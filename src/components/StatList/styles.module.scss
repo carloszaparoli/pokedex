@@ -1,26 +1,22 @@
 .statsTable {
     width: 100%;
-    table-layout: fixed;
     margin-top: -0.5rem;
     margin-bottom: .5rem;
 
     td {
         padding: .5rem;
-        width: 3rem;
         white-space: nowrap;
 
         &:nth-child(1) {
             font-size: 0.875rem;
             font-weight: 500;
-            width: 7.5rem;
-            text-transform: capitalize;
             padding-left: 0;
 
             color: var(--grey-900);
         }
 
         &:nth-child(3) {
-            width: 60%;
+            width: 100%;
 
             .progressBar {
                 height: 0.5rem;
@@ -135,12 +131,6 @@
 
 .infoText {
     font-size: 0.875rem;
-}
-
-@media (max-width: 720px) {
-    .statsTable {
-        table-layout: auto;
-    }
 }
 
 @media (max-width: 320px) {

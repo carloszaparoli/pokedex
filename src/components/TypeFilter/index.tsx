@@ -14,7 +14,7 @@ export function TypeFilter({ type, selected, onSelect }: TypeFilterProps) {
     return (
         <button type="button" className={`${styles.typeFilter} ${styles[type]} ${selected == type ? styles.selected : ''}`} onClick={() => onSelect(type)}>
             <div className={`${styles[type]} ${selected == type ? styles.selected : ''}`}>
-                <Icon iconName={type} width={20} height={20} />
+                <Icon iconName={type} />
             </div>
             <span>{type}</span>
         </button>

@@ -12,7 +12,11 @@ export default function Home() {
         <title>Pokédex</title>
       </Head>
       <Header />
-      <main className={styles.mainContainer}>        
+      <main className={styles.mainContainer}>
+        <div className={styles.titleContainer}>
+          <h1>Welcome to Pokédex!</h1>
+          <p>Search for Pokémon by name or if you prefer, filter by type.</p>
+        </div>
         <PokemonList />
       </main>
     </>

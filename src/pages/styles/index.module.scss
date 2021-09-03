@@ -1,15 +1,23 @@
 .mainContainer {
-    margin-bottom: 2rem;
-    padding: 0 1rem;
+    max-width: 1024px;
+    margin: 0 auto;
+    margin-bottom: 2rem;    
     
     .titleContainer {
-        padding: 3rem 0;
+        margin: 2rem 0;
         text-align: center;
         
         h1 {
-            margin-bottom: .5rem;
+            font-size: 2rem;
+            margin-bottom: .625rem;
+
             color: var(--grey-900);
         }
     }
 }
 
+@media (max-width: 1024px) {
+    .mainContainer {
+        padding: 0 1rem;
+    }
+}

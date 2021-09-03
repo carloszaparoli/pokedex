@@ -1,13 +1,15 @@
-import { GetServerSideProps } from "next"
 import Head from "next/head"
 import Image from "next/image"
 import Link from "next/link"
+import { GetServerSideProps } from "next"
+
+import { api } from "../../services/api"
+import { capitalizeText } from "../../utils/capitalizeText"
+
 import { EvolutionChain } from "../../components/EvolutionChain"
 import { Header } from "../../components/Header"
 import { Icon } from "../../components/Icon"
 import { StatList } from "../../components/StatList"
-import { api } from "../../services/api"
-import { capitalizeText } from "../../utils/capitalizeText"
 
 import styles from './pokemon.module.scss'
 
@@ -205,6 +207,16 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
     const pokemonData = await api.get(`pokemon/${context.params.slug}`)
         .then(resp => resp.data)
+        .catch((err) => {
+        })
+
+    if(!pokemonData) {
+        context.res.statusCode = 404
+        return {
+            props: {},
+            notFound: true,
+        }
+    }
 
     const pokemonSpecieData = await api.get(`pokemon-species/${pokemonData.species.name}`)
         .then(resp => resp.data)
@@ -240,9 +252,27 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         let minValue: number = 0
         let maxValue: number = 0
 
-        let name = index.stat.name.replace(/-/g, ' ')
+        let name: string = capitalizeText(index.stat.name.replace(/-/g, ' '))
+
+        switch (name) {
+            case 'Hp':
+                name = name.toUpperCase()
+                break;
+
+            case 'Special Attack':
+                name = "Sp. Atk"
+                break;
+
+            case 'Special Defense':
+                name = "Sp. Def"
+                break;
+
+            default:
+                break;
+        }
 
         if (index.stat.name === 'hp') {
+            name = name.toUpperCase()
             minValue = Math.floor(0.01 * (2 * index.base_stat) * level) + level + 10
             maxValue = Math.floor(0.01 * (2 * index.base_stat + IV + Math.floor(EV / 4)) * level) + level + 10
         } else {

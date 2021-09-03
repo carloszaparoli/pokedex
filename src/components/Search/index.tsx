@@ -1,4 +1,4 @@
-import { ChangeEventHandler, FormEvent, useState } from 'react'
+import { ChangeEventHandler, FormEvent, useRef, useState } from 'react'
 import { toast } from 'react-toastify'
 import { Icon } from '../Icon'
 
@@ -11,6 +11,8 @@ type SearchProps = {
 export function Search({ onSearch }: SearchProps) {
     const [search, setSearch] = useState<string>('')
 
+    const searchInput = useRef(null)
+
     const handleSubmit = (event: FormEvent) => {
         event.preventDefault()
 
@@ -18,6 +20,7 @@ export function Search({ onSearch }: SearchProps) {
             toast.warning("Enter at least 3 characters to search.")
         } else {
             onSearch(search)
+            searchInput.current.blur()
         }
     }
 
@@ -28,6 +31,7 @@ export function Search({ onSearch }: SearchProps) {
                     placeholder="Search your pokémon"
                     type="text"
                     value={search}
+                    ref={searchInput}
                     onChange={event => setSearch(event.target.value)}
                 />
                 <button type="submit">

@@ -1,10 +1,4 @@
 .pokemon {
-    transition: transform .2s;
-
-    &:hover {
-        transform: translateY(-0.25rem);
-    }
-
     a {
         position: relative;
         display: block;
@@ -13,6 +7,13 @@
         background-position: top right;
         background-size: 9rem;
         border-radius: 0.3125rem;
+
+        transition: transform .2s;
+
+        &:focus,
+        &:hover {
+            transform: translateY(-0.25rem);
+        }
 
         .image {
             display: block;
@@ -45,7 +46,7 @@
             font-weight: 600;
             margin-bottom: .25rem;
             white-space: nowrap;
-            
+
             color: var(--white);
         }
 
@@ -215,5 +216,5 @@
         &.Water {
             background-color: var(--background-type-water);
         }
-    } 
+    }
 }

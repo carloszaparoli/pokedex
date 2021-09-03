@@ -1,0 +1,64 @@
+.notFoundContainer {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    .imageContainer {
+        margin-bottom: 2rem;
+
+        img {
+            width: 31.25rem;
+        }
+    }
+
+    h1 {
+        font-size: 2rem;
+        margin-bottom: .5rem;
+
+        color: var(--grey-900);
+    }
+
+    p {
+        margin-bottom: 3rem;
+    }
+
+    button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        margin: 0 auto;
+        height: 3rem;
+        padding: 0 2rem;
+        border: 0;
+        border-radius: .25rem;
+        transition: background .2s;
+
+        background: var(--red-300);
+        color: var(--white);
+
+        &:focus,
+        &:hover {
+            background: var(--red-350);
+        }
+
+        svg {
+            width: 1rem;
+            transform: rotate(180deg);
+            fill: var(--white);
+            margin-right: .5rem;
+        }
+    }
+}
+
+@media (max-width: 720px) {
+    .notFoundContainer {
+        .imageContainer {
+            img {
+                width: 20rem;
+            }
+        }
+    }
+}
