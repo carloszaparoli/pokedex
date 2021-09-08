@@ -38,8 +38,8 @@ export function EvolutionChain({ evolutionChain }: EvolutionChainProps) {
 
     return evolutions.length >= 1 ? (
         <ul className={styles.evolutionChainList}>
-            {evolutions.map(pokemon => (
-                <li key={pokemon[0].nameLowerCase}>
+            {evolutions.map((pokemon, index) => (
+                <li key={index}>
                     <div className={styles.pokemon}>
                         <img src="/images/pokeball-grey-gradient.svg"
                             className={styles.pokeballImage}

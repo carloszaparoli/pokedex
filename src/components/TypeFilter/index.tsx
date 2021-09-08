@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Icon } from "../Icon";
 
 import styles from './styles.module.scss'
@@ -10,10 +9,9 @@ type TypeFilterProps = {
 }
 
 export function TypeFilter({ type, selected, onSelect }: TypeFilterProps) {
-
     return (
         <button type="button" className={`${styles.typeFilter} ${styles[type]} ${selected == type ? styles.selected : ''}`} onClick={() => onSelect(type)}>
-            <div className={`${styles[type]} ${selected == type ? styles.selected : ''}`}>
+            <div>
                 <Icon iconName={type} />
             </div>
             <span>{type}</span>

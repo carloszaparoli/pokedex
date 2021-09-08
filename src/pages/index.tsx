@@ -5,7 +5,6 @@ import { PokemonList } from '../components/PokemonList'
 import styles from './styles/index.module.scss'
 
 export default function Home() {
-
   return (
     <>
       <Head>

@@ -11,6 +11,7 @@ import { TypeListFilter } from "../TypeListFilter"
 import PsyduckImg from '../../../public/images/psyduck.svg'
 
 import styles from './styles.module.scss'
+import { usePokemon } from "../../contexts/PokemonContext"
 
 type PokemonBasicData = {
     name: string;
@@ -31,31 +32,49 @@ type Pokemon = {
 }
 
 export function PokemonList() {
-    const [allPokemons, setAllPokemons] = useState<PokemonBasicData[]>([])
-    const [filteredPokemons, setFilteredPokemons] = useState<PokemonBasicData[]>([])
-    const [backupListPokemons, setBackupListPokemons] = useState<PokemonBasicData[]>([])
+    const {
+        allPokemons,
+        setAllPokemons,
+        filteredPokemons,
+        setFilteredPokemons,
+        backupListPokemons,
+        setBackupListPokemons,
+        pokemons,
+        setPokemons,
+        selectedType,
+        setSelectedType,
+        searchText,
+        setSearchText,
+        filterMode,
+        setFilterMode,
+        to,
+        setTo,
+        typeIsSelected,
+        setTypeIsSelected,
+    } = usePokemon()
 
-    const [typeIsSelected, setTypeIsSelected] = useState(false)
-    const [searchText, setSearchText] = useState("")
-
-    const [pokemons, setPokemons] = useState<Pokemon[]>([])
-    const [to, setTo] = useState<number>(0)
     const [loading, setLoading] = useState(true)
     const [isLoadingMore, setIsLoadingMore] = useState(false)
-    const numberPokemonsToShow = 15;
+    const [searchTextResult, setSearchTextResult] = useState("")
+    const numberPokemonsToShow = 15
 
     useEffect(() => {
         async function fetchData() {
             let response = await getPokemonUrl(`pokemon?offset=0&limit=2000`)
             setAllPokemons(response.results)
             setFilteredPokemons(response.results)
+
             await loadPokemons(response.results.slice(to, numberPokemonsToShow))
         }
-        fetchData()
+        if (!filterMode) {
+            fetchData()
+        } else {
+            setSearchTextResult(searchText)
+            setLoading(false)
+        }
     }, [])
 
     const loadPokemons = async (data: PokemonBasicData[], cleanList: boolean = false) => {
-
         if (!cleanList) {
             setTo(to + numberPokemonsToShow)
         } else {
@@ -111,10 +130,8 @@ export function PokemonList() {
 
     async function filterByType(type: string) {
         setTo(15)
-        if (type !== "") {
-            setTypeIsSelected(true)
-
-            const typeData = await api.get(`type/${type}`)
+        if (type !== "") {            
+            const typeData = await api.get(`type/${type.toLowerCase()}`)
                 .then(resp => resp.data)
 
             const pokemons = typeData.pokemon.map(index => {
@@ -134,23 +151,27 @@ export function PokemonList() {
             } else {
                 loadPokemons(pokemons.slice(0, numberPokemonsToShow), true)
             }
+            setFilterMode(true)
+            setTypeIsSelected(true)
+            setSelectedType(type)            
 
-        } else {
+        } else {   
             setTypeIsSelected(false)
-            console.log(searchText)
+            setSelectedType("")         
             if (searchText !== "") {
                 let pokemonsList = allPokemons.filter(pokemon => pokemon.name.toLowerCase().indexOf(searchText.toLowerCase()) > -1)
                 setFilteredPokemons(pokemonsList)
                 loadPokemons(pokemonsList.slice(0, numberPokemonsToShow), true)
-            } else {
+                setFilterMode(true)
+            } else {                
                 setFilteredPokemons(allPokemons)
                 loadPokemons(allPokemons.slice(0, numberPokemonsToShow), true)
-            }
+                setFilterMode(false)
+            }            
         }
     }
 
     function searchPokemon(text: string) {
-        setSearchText(text)
         if (text.length == 0) {
             setTo(15)
             if (typeIsSelected) {
@@ -159,8 +180,8 @@ export function PokemonList() {
             } else {
                 setFilteredPokemons(allPokemons)
                 loadPokemons(allPokemons.slice(0, numberPokemonsToShow), true)
+                setFilterMode(false)
             }
-
         } else {
             let pokemonList = []
             if (typeIsSelected) {
@@ -168,9 +189,23 @@ export function PokemonList() {
             } else {
                 pokemonList = allPokemons.filter(pokemon => pokemon.name.toLowerCase().replace(/-/g, ' ').indexOf(text.toLowerCase()) > -1)
             }
+
             setFilteredPokemons(pokemonList)
             loadPokemons(pokemonList.slice(0, numberPokemonsToShow), true)
+            setFilterMode(true)
         }
+        setSearchText(text)
+        setSearchTextResult(text)
+    }
+
+    function cleanFilter() {
+        setFilterMode(false)
+        setSelectedType("")
+        setTypeIsSelected(false)
+        setSearchText("")
+        setSearchTextResult("")
+        setFilteredPokemons(allPokemons)
+        loadPokemons(allPokemons.slice(0, numberPokemonsToShow), true)
     }
 
     return (
@@ -183,12 +218,31 @@ export function PokemonList() {
                     {pokemons.length > 0
                         ?
                         <>
-                            {searchText != '' &&
-                                <p className={styles.numberResultsSearch}>
-                                    <strong>{filteredPokemons.length} </strong>
-                                    results found for:
-                                    <strong> {searchText}</strong>
-                                </p>
+                            {filterMode &&
+                                <div className={styles.resultSearch}>
+                                    <p className={styles.numberResultsSearch}>
+                                        <strong>{filteredPokemons.length} </strong>
+                                        <span>results found for: </span>
+                                        {searchTextResult !== "" &&
+                                            <strong> "{searchTextResult}" </strong>
+                                        }
+                                        {searchTextResult !== "" && typeIsSelected &&
+                                            <>
+                                                <span>of </span>
+                                            </>
+                                        }
+                                        {typeIsSelected &&
+                                            <>
+                                                type
+                                                <strong> "{selectedType}"</strong>
+                                            </>
+                                        }
+                                    </p>
+                                    <button type="button" onClick={() => cleanFilter()}>
+                                        <Icon iconName="close" />
+                                        Clean filter
+                                    </button>
+                                </div>
                             }
                             <ul className={styles.pokemonList}>
                                 {pokemons?.map(pokemon => (

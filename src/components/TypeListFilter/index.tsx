@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { usePokemon } from '../../contexts/PokemonContext'
 import { TypeFilter } from '../TypeFilter'
 import styles from './styles.module.scss'
 
@@ -13,15 +14,16 @@ export function TypeListFilter({ onFilter }: TypeListFilterProps) {
         "Normal", "Poison", "Psychic", "Rock", "Steel", "Water"
     ]
 
-    const [selected, setSelected] = useState("")
+    const { selectedType, setSelectedType } = usePokemon()
 
     function selectType(type: string) {
-        if (selected == type) {
-            setSelected("")
+        console.log("Type da lista: " + type)
+        if (selectedType == type) {
+            setSelectedType("")
             onFilter("")
         } else {
-            setSelected(type)
-            onFilter(type.toLowerCase())
+            setSelectedType(type)
+            onFilter(type)
         }
     }
 
@@ -30,7 +32,7 @@ export function TypeListFilter({ onFilter }: TypeListFilterProps) {
             <ul className={styles.typeFilterList}>
                 {types.map(type => (
                     <div key={type}>
-                        <TypeFilter type={type} selected={selected} onSelect={selectType} />
+                        <TypeFilter type={type} selected={selectedType} onSelect={selectType} />
                     </div>
                 ))}
             </ul>

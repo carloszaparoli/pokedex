@@ -1,5 +1,6 @@
-import { ChangeEventHandler, FormEvent, useRef, useState } from 'react'
+import { ChangeEventHandler, Dispatch, FormEvent, useRef, useState } from 'react'
 import { toast } from 'react-toastify'
+import { usePokemon } from '../../contexts/PokemonContext'
 import { Icon } from '../Icon'
 
 import styles from './styles.module.scss'
@@ -9,17 +10,17 @@ type SearchProps = {
 }
 
 export function Search({ onSearch }: SearchProps) {
-    const [search, setSearch] = useState<string>('')
-
+    
+    const { searchText, setSearchText } = usePokemon()
     const searchInput = useRef(null)
 
     const handleSubmit = (event: FormEvent) => {
         event.preventDefault()
 
-        if (search.length > 0 && search.length < 3) {
+        if (searchText.length > 0 && searchText.length < 3) {
             toast.warning("Enter at least 3 characters to search.")
         } else {
-            onSearch(search)
+            onSearch(searchText)
             searchInput.current.blur()
         }
     }
@@ -30,9 +31,9 @@ export function Search({ onSearch }: SearchProps) {
                 <input
                     placeholder="Search your pokémon"
                     type="text"
-                    value={search}
+                    value={searchText}
                     ref={searchInput}
-                    onChange={event => setSearch(event.target.value)}
+                    onChange={event => setSearchText(event.target.value)}
                 />
                 <button type="submit">
                     <Icon iconName="pokeball" />

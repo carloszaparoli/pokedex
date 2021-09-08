@@ -1,7 +1,7 @@
 import Head from "next/head"
 import Image from "next/image"
 import Link from "next/link"
-import { GetServerSideProps } from "next"
+import { GetServerSideProps, GetStaticPaths, GetStaticProps } from "next"
 
 import { api } from "../../services/api"
 import { capitalizeText } from "../../utils/capitalizeText"
@@ -203,7 +203,24 @@ export default function PokemonPage({ pokemon }: PokemonPageProps) {
     )
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getStaticPaths: GetStaticPaths = async () => {
+    const { data } = await api.get('pokemon?offset=0&limit=2000')
+
+    const paths = data.results.map(pokemon => {
+        return {
+            params: {
+                slug: pokemon.name
+            }
+        }
+    })
+
+    return {
+        paths,
+        fallback: 'blocking'
+    }
+}
+
+export const getStaticProps: GetStaticProps = async (context) => {
 
     const pokemonData = await api.get(`pokemon/${context.params.slug}`)
         .then(resp => resp.data)
@@ -211,7 +228,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         })
 
     if(!pokemonData) {
-        context.res.statusCode = 404
         return {
             props: {},
             notFound: true,
@@ -320,7 +336,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
             minLevel: !evoData.evolution_details[0] ? 1 : evoData.evolution_details[0].min_level,
             triggerName: !evoData.evolution_details[0] ? null : evoData.evolution_details[0].trigger.name,
             item: capitalizeText(itemName),
-            imageItem: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/${imageItemName}.png`,
+            imageItem: !imageItemName ? null : `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/${imageItemName}.png`,
             evolvesFrom: !pokeSpecieEvo.evolves_from_species ? null : pokeSpecieEvo.evolves_from_species.name,
         });
 

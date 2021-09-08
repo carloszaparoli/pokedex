@@ -121,6 +121,14 @@ export function Icon({ iconName, width, height, className }: IconProps) {
                 </svg>
             )
 
+        case "close":
+            return (
+                <svg className={className} width={width} height={height} viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1.11106 1.11111C1.72471 0.497461 2.71963 0.497461 3.33327 1.11111L18.8887 16.6667C19.5024 17.2803 19.5024 18.2752 18.8887 18.8889C18.2751 19.5025 17.2802 19.5025 16.6665 18.8889L1.11106 3.33333C0.49742 2.71968 0.49742 1.72476 1.11106 1.11111Z" />
+                    <path d="M1.1111 18.8888C0.497458 18.2752 0.497458 17.2802 1.1111 16.6666L16.6665 1.11106C17.2802 0.497408 18.2751 0.497408 18.8888 1.11106V1.11106C19.5024 1.72471 19.5024 2.71963 18.8888 3.33328L3.33331 18.8888C2.71966 19.5025 1.72475 19.5025 1.1111 18.8888V18.8888Z" />
+                </svg>
+            )
+
         case "male":
             return (
                 <svg className={className} width={width} height={height} viewBox="0 0 38 60" fill="none" xmlns="http://www.w3.org/2000/svg">
