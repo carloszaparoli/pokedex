@@ -372,7 +372,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
         id: pokemonData.id,
         idAsString: ('000' + pokemonData.id).slice(-3),
         name: capitalizeText(pokemonData.name.replace(/-/g, ' ')),
-        image: pokemonData.sprites.other["official-artwork"].front_default,
+        image: pokemonData.sprites.other["official-artwork"].front_default || pokemonData.sprites.front_default,
         description: flavorTextEntries.flavor_text,
         types: types,
         abilities: abilities,
