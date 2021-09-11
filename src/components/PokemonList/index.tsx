@@ -5,13 +5,13 @@ import { capitalizeText } from '../../utils/capitalizeText'
 import { Icon } from "../Icon"
 import { PokemonCard } from '../PokemonCard'
 import { Search } from '../Search'
-import { SkeletonCardList } from "../SkeletonCardList"
 import { TypeListFilter } from "../TypeListFilter"
 
 import PsyduckImg from '../../../public/images/psyduck.svg'
 
 import styles from './styles.module.scss'
 import { usePokemon } from "../../contexts/PokemonContext"
+import dynamic from "next/dynamic"
 
 type PokemonBasicData = {
     name: string;
@@ -32,6 +32,10 @@ type Pokemon = {
 }
 
 export function PokemonList() {
+    const SkeletonCardList = dynamic(() => import("../SkeletonCardList") as any, {
+        ssr: false,
+    });
+
     const {
         allPokemons,
         setAllPokemons,
@@ -204,6 +208,7 @@ export function PokemonList() {
         setTypeIsSelected(false)
         setSearchText("")
         setSearchTextResult("")
+        setTo(15)
         setFilteredPokemons(allPokemons)
         loadPokemons(allPokemons.slice(0, numberPokemonsToShow), true)
     }

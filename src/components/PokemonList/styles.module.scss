@@ -7,7 +7,7 @@
 
     padding-bottom: .75rem;
     margin-bottom: 1rem;
-    border-bottom: 1px solid var(--grey-100);
+    border-bottom: 1px solid var(--border-color);
 
     button {
         display: flex;
@@ -50,8 +50,8 @@
     padding: 1rem;
     border-radius: .5rem;
 
-    border: 1px solid var(--grey-100);
-    background: var(--white);
+    border: 1px solid var(--border-color);
+    background: var(--bg-color);
 
     .imageContainer {
         margin-right: 2rem;
@@ -109,7 +109,7 @@
             animation-iteration-count: infinite;
             animation-timing-function: linear;
 
-            fill: var(--grey-300);
+            fill: var(--text-color);
         }
     }
 

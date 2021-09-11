@@ -4,17 +4,42 @@
     box-sizing: border-box;
 }
 
+html,
+html[data-theme="light"] {
+    --bg-body-color: #F1F1F1;
+    --bg-color: #FFFFFF;
+    --text-color: #747476;
+    --placeholder-color: #B1B1B1;
+    --title-color: #17171B;
+    --border-color: #DBDBDB;
+
+    --shadow-header: #DBDBDB;
+
+    --toggle-btn-bg: #FFFFFF;
+}
+
+html[data-theme="dark"] {
+    --bg-body-color: #29304F;
+    --bg-color: #343D64;
+    --text-color: #757CA3;
+    --placeholder-color: #757CA3;
+    --title-color: #F9F9FB;
+    --border-color: #404B7E;
+
+    --shadow-header: transparent;
+
+    --toggle-btn-bg: #404B7E;
+}
+
 :root {
     --white: #FFFFFF;
-    
-    --grey-50: #F1F1F1;
-    --grey-100: #DBDBDB;
-    --grey-200: #b1b1b1;
-    --grey-300: #747476;
-    --grey-900: #17171B;
 
     --red-300: #EA5D60;
     --red-350: #F04E54;
+
+    --yellow-500: #F7BA15;
+
+    --purple-300: #343D64;
 
     // Pokémon Types
     --type-bug: #8CB230;
@@ -69,11 +94,9 @@
 }
 
 body {
-    background: var(--grey-50);
-    color: var(--grey-300);
-
-    //max-width: 1024px;
-    //margin: 0 auto;
+    background: var(--bg-body-color);
+    color: var(--text-color);
+    transition: background 0.25s ease-in-out;
 }
 
 body, input, textarea, select, button {

@@ -17,7 +17,6 @@ export function TypeListFilter({ onFilter }: TypeListFilterProps) {
     const { selectedType, setSelectedType } = usePokemon()
 
     function selectType(type: string) {
-        console.log("Type da lista: " + type)
         if (selectedType == type) {
             setSelectedType("")
             onFilter("")

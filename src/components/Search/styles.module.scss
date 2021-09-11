@@ -18,9 +18,9 @@
             border-radius: 0.5rem;
             outline: none;
 
-            color: var(--grey-300);
-            border: 1px solid var(--grey-100);
-            background-color: var(--white);
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-color);
 
             transition: all .2s;
 
@@ -30,18 +30,18 @@
 
             &::placeholder {
                 font-size: 1rem;
-                color: var(--grey-200);
+                color: var(--placeholder-color);
                 opacity: 1;
             }
 
             &::-ms-input-placeholder {
                 font-size: 1rem;
-                color: var(--grey-200);
+                color: var(--placeholder-color);
             }
 
             &:-ms-input-placeholder {
                 font-size: 1rem;
-                color: var(--grey-200);
+                color: var(--placeholder-color);
             }
         }
 

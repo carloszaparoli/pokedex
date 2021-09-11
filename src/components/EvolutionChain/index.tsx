@@ -1,5 +1,7 @@
+import { useTheme } from "next-themes"
 import Image from "next/image"
 import Link from "next/link"
+import { useEffect, useState } from "react"
 import { Icon } from "../Icon"
 
 import styles from './styles.module.scss'
@@ -23,6 +25,13 @@ type EvolutionChainProps = {
 
 export function EvolutionChain({ evolutionChain }: EvolutionChainProps) {
 
+    const { theme } = useTheme()
+    const [ activeTheme, setActiveTheme] = useState("")
+
+    useEffect(() => {
+        setActiveTheme(theme)
+    }, [theme])
+
     let evolutions = []
 
     if (evolutionChain.length > 1) {
@@ -37,66 +46,81 @@ export function EvolutionChain({ evolutionChain }: EvolutionChainProps) {
     }
 
     return evolutions.length >= 1 ? (
-        <ul className={styles.evolutionChainList}>
-            {evolutions.map((pokemon, index) => (
-                <li key={index}>
-                    <div className={styles.pokemon}>
-                        <img src="/images/pokeball-grey-gradient.svg"
-                            className={styles.pokeballImage}
-                            alt="Evolution"
-                        />
-                        <Link href={'/pokemon/' + pokemon[0].nameLowerCase}>
-                            <a>
-                                <div className={styles.imageContainer}>
-                                    <Image src={pokemon[0].image}
-                                        width={132}
-                                        height={132}
-                                        alt={pokemon[0].name}
-                                    />
+        <>
+            <ul className={styles.evolutionChainList}>
+                {evolutions.map((pokemon, index) => (
+                    <li key={index}>
+                        <div className={styles.pokemon}>
+                            {activeTheme == "dark"
+                                ? <img src="/images/pokeball-grey-gradient-dark.svg"
+                                    className={styles.pokeballImage}
+                                    alt="Evolution"
+                                />
+                                : <img src="/images/pokeball-grey-gradient.svg"
+                                    className={styles.pokeballImage}
+                                    alt="Evolution"
+                                />
+                            }
+
+                            <Link href={'/pokemon/' + pokemon[0].nameLowerCase}>
+                                <a>
+                                    <div className={styles.imageContainer}>
+                                        <Image src={pokemon[0].image}
+                                            width={132}
+                                            height={132}
+                                            alt={pokemon[0].name}
+                                        />
+                                    </div>
+                                    <div>
+                                        <span className={styles.number}>#{pokemon[0].idAsString}</span>
+                                        <h3 className={styles.name}>{pokemon[0].name}</h3>
+                                    </div>
+                                </a>
+                            </Link>
+                        </div>
+                        <div className={styles.evolvesTo}>
+                            <Icon className={styles.arrowImage} iconName="arrow-right" />
+                            {pokemon[1].minLevel != null &&
+                                <span>Level {pokemon[1].minLevel}</span>
+                            }
+                            {pokemon[1].item != null &&
+                                <div className={styles.evolutionItem}>
+                                    <Image src={pokemon[1].imageItem} width={30} height={30} alt={pokemon[1].item} />
+                                    <span>{pokemon[1].item}</span>
                                 </div>
-                                <div>
-                                    <span className={styles.number}>#{pokemon[0].idAsString}</span>
-                                    <h3 className={styles.name}>{pokemon[0].name}</h3>
-                                </div>
-                            </a>
-                        </Link>
-                    </div>
-                    <div className={styles.evolvesTo}>
-                        <Icon className={styles.arrowImage} iconName="arrow-right" />
-                        {pokemon[1].minLevel != null &&
-                            <span>Level {pokemon[1].minLevel}</span>
-                        }
-                        {pokemon[1].item != null &&
-                            <div className={styles.evolutionItem}>
-                                <Image src={pokemon[1].imageItem} width={30} height={30} alt={pokemon[1].item}  />
-                                <span>{pokemon[1].item}</span>
-                            </div>
-                        }
-                    </div>
-                    <div className={styles.pokemon}>
-                        <img src="/images/pokeball-grey-gradient.svg"
-                            className={styles.pokeballImage}
-                            alt="Evolution"
-                        />
-                        <Link href={'/pokemon/' + pokemon[1].nameLowerCase}>
-                            <a>
-                                <div className={styles.imageContainer}>
-                                    <Image src={pokemon[1].image}
-                                        width={132}
-                                        height={132}
-                                        alt={pokemon[1].name}
-                                    />
-                                </div>
-                                <div>
-                                    <span className={styles.number}>#{pokemon[1].idAsString}</span>
-                                    <h3 className={styles.name}>{pokemon[1].name}</h3>
-                                </div>
-                            </a>
-                        </Link>
-                    </div>
-                </li>
-            ))}
-        </ul>
+                            }
+                        </div>
+                        <div className={styles.pokemon}>
+                            {activeTheme == "dark"
+                                ? <img src="/images/pokeball-grey-gradient-dark.svg"
+                                    className={styles.pokeballImage}
+                                    alt="Evolution"
+                                />
+                                : <img src="/images/pokeball-grey-gradient.svg"
+                                    className={styles.pokeballImage}
+                                    alt="Evolution"
+                                />
+                            }
+                            <Link href={'/pokemon/' + pokemon[1].nameLowerCase}>
+                                <a>
+                                    <div className={styles.imageContainer}>
+                                        <Image src={pokemon[1].image}
+                                            width={132}
+                                            height={132}
+                                            alt={pokemon[1].name}
+                                        />
+                                    </div>
+                                    <div>
+                                        <span className={styles.number}>#{pokemon[1].idAsString}</span>
+                                        <h3 className={styles.name}>{pokemon[1].name}</h3>
+                                    </div>
+                                </a>
+                            </Link>
+                        </div>
+                    </li>
+                ))}
+            </ul>
+        </>
     )
         :
         (

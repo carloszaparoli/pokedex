@@ -18,7 +18,7 @@ type Type = {
     name: string
 }
 
-type PlayerContextData = {
+type PokemonContextData = {
     allPokemons: PokemonBasicData[];
     setAllPokemons: Dispatch<SetStateAction<PokemonBasicData[]>>;
     filteredPokemons: PokemonBasicData[];
@@ -41,7 +41,7 @@ type PlayerContextData = {
     setTypeIsSelected: Dispatch<SetStateAction<Boolean>>;
 }
 
-export const PokemonContext = createContext({} as PlayerContextData)
+export const PokemonContext = createContext({} as PokemonContextData)
 
 type PokemonContextProviderProps = {
     children: ReactNode;

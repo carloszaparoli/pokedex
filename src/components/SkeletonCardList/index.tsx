@@ -1,23 +1,30 @@
+import { useTheme } from "next-themes";
+import { useState } from "react";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import { usePokemon } from "../../contexts/PokemonContext";
 
 import styles from "./styles.module.scss"
 
-export function SkeletonCardList() {
-
+export default function SkeletonCardList() {
+    const { theme } = useTheme()
     const { filterMode } = usePokemon()
-    
     return (
         <>
             {filterMode &&
-                <SkeletonTheme color="#e4e4e4" highlightColor="#d8d8d8">
+                <SkeletonTheme
+                    color={theme == "dark" ? '#343D64' : '#E4E4E4'}
+                    highlightColor={theme == "dark" ? '#2F375A' : '#D8D8D8'}
+                >
                     <div className={styles.resultFilterList}>
                         <Skeleton width={258} height={19} />
                         <Skeleton width={85} height={19} />
                     </div>
                 </SkeletonTheme>
             }
-            <SkeletonTheme color="#EDEDED" highlightColor="#E0E0E0">
+            <SkeletonTheme
+                color={theme == "dark" ? '#4B547E' : '#EDEDED'}
+                highlightColor={theme == "dark" ? '#424b70' : '#E0E0E0'}
+            >
                 <ul className={styles.skeletonCardList}>
                     {Array.apply(null, new Array(15)).map((item, index) => (
                         <li key={index}>

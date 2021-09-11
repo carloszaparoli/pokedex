@@ -12,7 +12,7 @@
             font-weight: 500;
             padding-left: 0;
 
-            color: var(--grey-900);
+            color: var(--title-color);
         }
 
         &:nth-child(3) {
@@ -22,7 +22,7 @@
                 height: 0.5rem;
                 border-radius: 2rem;
 
-                background-color: var(--grey-50);
+                background-color: var(--bg-body-color);
 
                 .progressBarValue {
                     height: 0.5rem;
@@ -116,14 +116,14 @@
 
     tfoot {
         td {
-            color: var(--grey-900);
+            color: var(--title-color);
             font-weight: 500;
 
             &:nth-child(2) {
                 font-size: 1.125rem;
                 font-weight: bold;
 
-                color: var(--grey-300);
+                color: var(--text-color);
             }
         }
     }

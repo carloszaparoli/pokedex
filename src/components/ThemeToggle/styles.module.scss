@@ -1,0 +1,44 @@
+.themeToggle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 50rem;
+    background-color: var(--toggle-btn-bg);
+
+    transition: all .3s ease;
+
+    svg {
+        width: 1.25rem;
+        height: 1.25rem;
+    }
+
+    &.light {
+        svg {
+            fill: var(--purple-300);
+        }
+
+        &:hover {
+            background-color: var(--purple-300);
+            svg {
+                fill: var(--white);
+            }
+        }
+    }
+
+    &.dark {
+        svg {
+            fill: var(--yellow-500);
+        }
+
+        &:hover {
+            background-color: var(--yellow-500);
+            svg {
+                fill: var(--white);
+            }
+        }
+    }
+}

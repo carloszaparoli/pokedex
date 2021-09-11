@@ -4,7 +4,7 @@
     
     padding-bottom: .75rem;
     margin-bottom: 1rem;
-    border-bottom: 1px solid var(--grey-100);
+    border-bottom: 1px solid var(--border-color);
 }
 
 .skeletonCardList {
@@ -23,7 +23,7 @@
         padding: 1.5rem;
         border-radius: 0.3125rem;
 
-        background-color: var(--white);
+        background-color: var(--bg-color);
 
         > div {
             display: flex;
