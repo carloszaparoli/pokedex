@@ -8,6 +8,7 @@ import logoLight from '../../../public/images/logo.svg'
 import logoDark from '../../../public/images/logo-dark.svg'
 
 import { useTheme } from 'next-themes'
+import { Icon } from '../Icon'
 
 export function Header() {
 
@@ -19,6 +20,14 @@ export function Header() {
 
     return (
         <header className={styles.header}>
+            <a
+                href="https://github.com/carloszaparoli/pokedex"
+                className={styles.github}
+                target="_blank"
+                title="Github"
+            >
+                <Icon iconName="github" width={24} height={24} />
+            </a>
             <Link href="/">
                 <a>
                     {theme == "dark"

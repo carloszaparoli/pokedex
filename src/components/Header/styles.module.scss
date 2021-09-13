@@ -16,6 +16,22 @@
 
     transition: background 0.25s ease-in-out;
 
+    .github {
+        display: block;
+        position: absolute;
+        left: 2rem;
+        top: 50%;
+        transform: translate(0%, -50%);
+
+        svg {
+            display: block;
+            width: 1.5rem;
+            height: 1.5rem;
+
+            fill: var(--title-color);
+        }
+    }
+
     img {
         width: 10rem;
     }
@@ -27,6 +43,18 @@
     button {
         position: absolute;
         right: 2rem;
+    }
+}
+
+@media (max-width: 1024px) {
+    .header {
+        .github {
+            left: 1rem;
+        }
+
+        button {
+            right: 1rem;
+        }
     }
 }
 

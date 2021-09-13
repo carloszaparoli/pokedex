@@ -12,9 +12,7 @@ html[data-theme="light"] {
     --placeholder-color: #B1B1B1;
     --title-color: #17171B;
     --border-color: #DBDBDB;
-
     --shadow-header: #DBDBDB;
-
     --toggle-btn-bg: #FFFFFF;
 }
 
@@ -25,20 +23,15 @@ html[data-theme="dark"] {
     --placeholder-color: #757CA3;
     --title-color: #F9F9FB;
     --border-color: #404B7E;
-
     --shadow-header: transparent;
-
     --toggle-btn-bg: #404B7E;
 }
 
 :root {
     --white: #FFFFFF;
-
     --red-300: #EA5D60;
     --red-350: #F04E54;
-
     --yellow-500: #F7BA15;
-
     --purple-300: #343D64;
 
     // Pokémon Types

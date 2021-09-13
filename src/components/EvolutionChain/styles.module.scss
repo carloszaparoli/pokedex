@@ -13,6 +13,12 @@
             width: 9.75rem;
             position: relative;
 
+            &:hover {
+                .imageContainer {
+                    transform: translateY(-0.25rem);
+                }
+            }
+
             .pokeballImage {
                 position: absolute;
                 width: 9.75rem;
@@ -27,6 +33,8 @@
 
                 .imageContainer {
                     padding: 0.75rem;
+
+                    transition: transform .2s;
                 }
 
                 .number {

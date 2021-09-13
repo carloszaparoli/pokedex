@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import { Header } from '../components/Header'
+import { Icon } from '../components/Icon'
 import { PokemonList } from '../components/PokemonList'
 
 import styles from './styles/index.module.scss'
