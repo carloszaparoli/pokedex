@@ -4,7 +4,10 @@ Grande parte visual do projeto foi inspirado em um <a href="https://www.behance.
 <p>
 <p>🌐 Link do Projeto - https://pokedex-carloszaparoli.vercel.app/</p>
 
-<h3>Principais Funcionalidades</h3>
+<h3>📌 Objetivo</h3>
+<p>O objetivo principal do projeto foi aprender um pouco mais sobre React, React Hooks, Next.js, TypeScript e SCSS Modules. Como sempre fui apaixonado por tecnologia e por Pokémon, resolvi unir o útil ao agradável e desenvolver o projeto Pokédex.</p>
+
+<h3>📋 Principais Funcionalidades</h3>
 <ul>
   <li>
     <strong>Listagem de Pokémon:</strong>
