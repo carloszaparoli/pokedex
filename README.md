@@ -24,7 +24,7 @@ Grande parte visual do projeto foi inspirado em um <a href="https://www.behance.
   </li>
 </ul>
 
-<h1>Instalação e Execução</h1>
+<h1>📥 Instalação e Execução</h1>
 <p>Faça o clone desse repositório e acesse o diretório</p>
 <pre>
 $ git clone https://github.com/carloszaparoli/pokedex.git && cd pokedex
@@ -38,7 +38,7 @@ $ npm install
 $ npm run dev
 </pre>
 
-<h1>🚀 Tecnologias</h1>
+<h1>🚀 Tecnologias utilizadas</h1>
 <ul>
   <li>
     <a href="https://pt-br.reactjs.org/" target="_blank">React</a>
@@ -63,4 +63,4 @@ $ npm run dev
 <h1>🙌 Agradecimentos</h1>
 <p>Agradeço a todos que me apoiaram e auxiliaram no desenvolvimento do projeto.
 <hr/>
-⌨️ com ❤️ por <a href="https://github.com/carloszaparoli/">Carlos Zaparoli</a> 😊
+Desenvolvido com ❤️ por <a href="https://github.com/carloszaparoli/">Carlos Zaparoli</a> 😊
