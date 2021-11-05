@@ -13,7 +13,6 @@ import { Icon } from '../Icon'
 export function Header() {
 
     const { theme } = useTheme()
-
     const ThemeToggle = dynamic(() => import("../ThemeToggle") as any, {
         ssr: false,
     });

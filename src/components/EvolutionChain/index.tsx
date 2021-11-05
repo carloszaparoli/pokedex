@@ -61,7 +61,6 @@ export function EvolutionChain({ evolutionChain }: EvolutionChainProps) {
                                     alt="Evolution"
                                 />
                             }
-
                             <Link href={'/pokemon/' + pokemon[0].nameLowerCase}>
                                 <a>
                                     <div className={styles.imageContainer}>
@@ -121,9 +120,7 @@ export function EvolutionChain({ evolutionChain }: EvolutionChainProps) {
                 ))}
             </ul>
         </>
+    ) : (
+        <p>This Pokemon does not evolve.</p>
     )
-        :
-        (
-            <p>This Pokemon does not evolve.</p>
-        )
 }

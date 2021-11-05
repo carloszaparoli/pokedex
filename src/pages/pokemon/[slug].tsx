@@ -68,7 +68,6 @@ type Pokemon = {
 
 type PokemonPageProps = {
     pokemon: Pokemon;
-
 }
 
 export default function PokemonPage({ pokemon }: PokemonPageProps) {
@@ -206,7 +205,7 @@ export default function PokemonPage({ pokemon }: PokemonPageProps) {
 export const getStaticPaths: GetStaticPaths = async () => {
     const { data } = await api.get('pokemon?offset=0&limit=2000')
 
-    const paths = data.results.map(pokemon => {
+    const paths = data.results.map((pokemon: Pokemon) => {
         return {
             params: {
                 slug: pokemon.name
@@ -224,9 +223,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
     const pokemonData = await api.get(`pokemon/${context.params.slug}`)
         .then(resp => resp.data)
-        .catch((err) => {
-        })
-
     if(!pokemonData) {
         return {
             props: {},
