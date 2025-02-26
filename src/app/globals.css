@@ -1,21 +1,94 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@theme {
+  --color-*: initial;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  --color-white: #ffffff;
+
+  --color-red-200: #ea5d60;
+  --color-red-500: #f04e54;
+
+  --color-yellow-500: #f7ba15;
+
+  --color-muted: rgba(23, 23, 27, 0.6);
+
+  --color-type-bug-primary: #8cb230;
+  --color-type-bug-secondary: #8bd674;
+
+  --color-type-dark-primary: #58575f;
+  --color-type-dark-secondary: #6f6e78;
+
+  --color-type-dragon-primary: #0f6ac0;
+  --color-type-dragon-secondary: #7383b9;
+
+  --color-type-electric-primary: #eed535;
+  --color-type-electric-secondary: #f2cb55;
+
+  --color-type-fairy-primary: #ed6ec7;
+  --color-type-fairy-secondary: #eba8c3;
+
+  --color-type-fighting-primary: #d04164;
+  --color-type-fighting-secondary: #eb4971;
+
+  --color-type-fire-primary: #fd7d24;
+  --color-type-fire-secondary: #ffa756;
+
+  --color-type-flying-primary: #748fc9;
+  --color-type-flying-secondary: #83a2e3;
+
+  --color-type-ghost-primary: #556aae;
+  --color-type-ghost-secondary: #8571be;
+
+  --color-type-grass-primary: #62b957;
+  --color-type-grass-secondary: #8bbe8a;
+
+  --color-type-ground-primary: #dd7748;
+  --color-type-ground-secondary: #f78551;
+
+  --color-type-ice-primary: #61cec0;
+  --color-type-ice-secondary: #91d8df;
+
+  --color-type-normal-primary: #9da0aa;
+  --color-type-normal-secondary: #b5b9c4;
+
+  --color-type-poison-primary: #a552cc;
+  --color-type-poison-secondary: #9f6e97;
+
+  --color-type-psychic-primary: #ea5d60;
+  --color-type-psychic-secondary: #ff6568;
+
+  --color-type-rock-primary: #baab82;
+  --color-type-rock-secondary: #d4c294;
+
+  --color-type-steel-primary: #417d9a;
+  --color-type-steel-secondary: #4c91b2;
+
+  --color-type-water-primary: #4a90da;
+  --color-type-water-secondary: #58abf6;
+
+  --color-gray-50: #f3f6fb;
+  --color-gray-100: #e3eaf6;
+  --color-gray-200: #cddbf0;
+  --color-gray-300: #abc3e5;
+  --color-gray-400: #82a5d8;
+  --color-gray-500: #6587cc;
+  --color-gray-600: #516ebf;
+  --color-gray-700: #475dae;
+  --color-gray-800: #3e4d8f;
+  --color-gray-900: #364372;
+  --color-gray-950: #29304f;
+
+  --font-sans: var(--font-roboto);
+
+  --animate-bounceSmooth: bounceSmooth 2s ease-in-out infinite;
+
+  @keyframes bounceSmooth {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
   }
-}
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
 }
