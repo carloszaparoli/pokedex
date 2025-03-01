@@ -5,9 +5,9 @@ import { Sun } from "lucide-react";
 
 export function Header() {
   return (
-    <div className="bg-gray-900 w-full h-16 px-4 flex items-center justify-between rounded-lg">
+    <div className="dark:bg-bluewood-900 w-full h-16 px-4 flex items-center justify-between rounded-lg">
       <svg
-        className="size-6 text-gray-100"
+        className="size-6 dark:text-bluewood-100"
         role="img"
         viewBox="0 0 24 24"
         xmlns="http://www.w3.org/2000/svg"

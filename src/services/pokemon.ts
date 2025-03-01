@@ -1,10 +1,19 @@
-import { pokemonAdapter } from "@/adapters/pokemon-adapter";
+import { mapEvolutionChain } from "@/adapters/evolution-chain-adapter";
+import { itemInfoAdapter } from "@/adapters/item-info-adapter";
 import {
+  pokemonAdapter,
+  pokemonDetailsAdapter,
+} from "@/adapters/pokemon-adapter";
+import { pokemonSpecieAdapter } from "@/adapters/pokemon-specie-adapter";
+import {
+  EvolutionChainResponse,
+  ItemInfoResponse,
   PokemonDetailsResponse,
   PokemonListByTypeResponse,
   PokemonListResponse,
-  PokemonType,
-} from "@/types/pokemon";
+  PokemonSpecieResponse,
+} from "@/types/api-response";
+import { PokemonType } from "@/types/pokemon";
 import axios from "axios";
 
 const pokeAPI = axios.create({
@@ -31,4 +40,32 @@ export async function getPokemonDetails(url: string) {
   const { data: details } = await pokeAPI.get<PokemonDetailsResponse>(url);
 
   return pokemonAdapter(details);
+}
+
+export async function getPokemonDetailsByName(name: string) {
+  const { data } = await pokeAPI.get<PokemonDetailsResponse>(
+    `/pokemon/${name}`
+  );
+
+  return pokemonDetailsAdapter(data);
+}
+
+export async function getPokemonSpecieByName(name: string) {
+  const { data } = await pokeAPI.get<PokemonSpecieResponse>(
+    `/pokemon-species/${name}`
+  );
+
+  return pokemonSpecieAdapter(data);
+}
+
+export async function getEvolutionChainByName(url: string) {
+  const { data } = await axios.get<EvolutionChainResponse>(url);
+
+  return mapEvolutionChain(data);
+}
+
+export async function getItemInfo(itemName: string) {
+  const { data } = await pokeAPI.get<ItemInfoResponse>(`/item/${itemName}`);
+
+  return itemInfoAdapter(data);
 }

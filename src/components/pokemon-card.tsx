@@ -77,7 +77,7 @@ export function PokemonCard({ pokemon }: PokemonCardProps) {
                 className={`${badgeTypeColors[type]} flex items-center gap-1 text-xs font-medium py-1 px-2 rounded-sm`}
               >
                 <PokemonTypeIcon
-                  className="size-3 text-white hover:text-gray-500 transition-colors duration-1000"
+                  className="size-3 text-white transition-colors duration-1000"
                   type={type}
                 />
                 {formattedTypeName}

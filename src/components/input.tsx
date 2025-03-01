@@ -7,7 +7,7 @@ export function InputRoot({ className, ...props }: InputRootProps) {
   return (
     <div
       className={twMerge(
-        "group bg-gray-900 h-12 border border-gray-800 rounded-lg px-4 flex items-center gap-2 focus-within:border-gray-700",
+        "group dark:bg-bluewood-900 h-12 border dark:border-bluewood-800 rounded-lg px-4 flex items-center gap-2 dark:focus-within:border-bluewood-700",
         className
       )}
       {...props}
@@ -19,6 +19,9 @@ type InputFieldProps = ComponentProps<"input">;
 
 export function InputField(props: InputFieldProps) {
   return (
-    <input className="flex-1 outline-0 placeholder:text-gray-400" {...props} />
+    <input
+      className="flex-1 outline-0 dark:placeholder:text-bluewood-400"
+      {...props}
+    />
   );
 }

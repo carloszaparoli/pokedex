@@ -41,3 +41,12 @@ export const POKEMON_TYPE_LABELS: Record<PokemonType, string> = {
   steel: "Steel",
   water: "Water",
 };
+
+export const STAT_NAME_LABEL: Record<string, string> = {
+  hp: "HP",
+  attack: "Attack",
+  defense: "Defense",
+  "special-attack": "Sp. Atk",
+  "special-defense": "Sp. Def",
+  speed: "Speed",
+};

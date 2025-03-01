@@ -25,32 +25,61 @@ export interface Pokemon {
   types: PokemonType[];
 }
 
+interface Ability {
+  name: string;
+  isHidden: boolean;
+}
+
+export interface Stats {
+  name: string;
+  value: number;
+  minValue: number;
+  maxValue: number;
+  percentage: number;
+}
+
+export interface PokemonDetails {
+  id: number;
+  name: string;
+  image: string;
+  types: PokemonType[];
+  weight: number;
+  height: number;
+  abilities: Ability[];
+  stats: Stats[];
+}
+
+export interface PokemonSpecie {
+  description: string;
+  maleRatio: number;
+  femaleRatio: number;
+  captureRate: number;
+  baseHapiness: number;
+  eggGroups: string[];
+  evolutionChainUrl: string;
+}
+
 export interface PokemonUrl {
   name: string;
   url: string;
 }
 
-export interface PokemonListResponse {
-  results: PokemonUrl[];
-  count: number;
-}
-
-export interface PokemonListByTypeResponse {
-  pokemon: {
-    pokemon: PokemonUrl;
-  }[];
-}
-
-export interface PokemonDetailsResponse {
-  id: number;
-  name: string;
-  sprites: {
-    front_default: string;
-    other?: {
-      "official-artwork"?: {
-        front_default?: string;
-      };
-    };
+export interface EvolutionChain {
+  from: {
+    id: number;
+    name: string;
+    image: string;
   };
-  types: { type: { name: string } }[];
+  to: {
+    id: number;
+    name: string;
+    image: string;
+  };
+  minLevel?: number;
+  item?: ItemInfo;
+}
+
+export interface ItemInfo {
+  name: string;
+  image: string;
 }

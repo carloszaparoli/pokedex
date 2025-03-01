@@ -1,6 +1,6 @@
 import { Pokemon } from "@/types/pokemon";
 import { Button } from "./button";
-import { PokeballIcon } from "./pokeball-icon";
+import { PokeballIcon } from "./icons/pokeball-icon";
 import { PokemonCard } from "./pokemon-card";
 import { PokemonSkeletonCard } from "./pokemon-skeleton-card";
 

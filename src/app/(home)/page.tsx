@@ -130,7 +130,7 @@ export default function HomePage() {
             <h1 className="text-3xl font-bold text-center leading-none mb-4">
               Welcome to the Pokédexx! 🔥
             </h1>
-            <p className="text-gray-400 text-center">
+            <p className="dark:text-bluewood-400 text-center">
               Search for your favorite Pokémon by name or explore them by type
             </p>
           </div>
@@ -146,8 +146,8 @@ export default function HomePage() {
 
         <div className="space-y-5">
           {hasActiveFilters && (
-            <div className="flex items-center justify-between gap-2 border-b border-gray-900 py-3">
-              <span className="text-gray-400">
+            <div className="flex items-center justify-between gap-2 border-b dark:border-bluewood-800 py-3">
+              <span className="dark:text-bluewood-400">
                 {totalPokemon} results found for:{" "}
                 {selectedType && !searchQuery && (
                   <span>

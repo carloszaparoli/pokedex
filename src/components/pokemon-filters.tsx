@@ -1,6 +1,6 @@
 import { Button } from "./button";
 import { InputField, InputRoot } from "./input";
-import { PokeballIcon } from "./pokeball-icon";
+import { PokeballIcon } from "./icons/pokeball-icon";
 import { POKEMON_TYPE_LABELS, POKEMON_TYPES } from "@/constants/pokemon";
 import { PokemonTypeIcon } from "./pokemon-type-icon";
 import { twMerge } from "tailwind-merge";
@@ -118,8 +118,10 @@ export function PokemonFilters({
           >
             <div
               className={twMerge(
-                `flex items-center justify-center size-12 bg-gray-900 rounded-full border border-gray-800 mb-1 transition-colors ${iconTypeClasses[type]} ${hoverTypeClasses[type]}`,
-                selectedType === type && selectedTypeClasses[type]
+                `flex items-center justify-center size-12 rounded-full border  mb-1 transition-colors ${iconTypeClasses[type]} ${hoverTypeClasses[type]}`,
+                selectedType === type
+                  ? selectedTypeClasses[type]
+                  : "dark:bg-bluewood-900 dark:border-bluewood-800"
               )}
             >
               <PokemonTypeIcon
@@ -129,8 +131,8 @@ export function PokemonFilters({
             </div>
             <span
               className={twMerge(
-                "text-gray-500 text-xs",
-                `${selectedType === type && `text-gray-300`}`
+                "dark:text-bluewood-500 text-xs",
+                `${selectedType === type && `dark:text-bluewood-300`}`
               )}
             >
               {POKEMON_TYPE_LABELS[type]}
