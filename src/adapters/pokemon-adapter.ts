@@ -1,9 +1,6 @@
 import { STAT_NAME_LABEL } from "@/constants/pokemon";
-import {
-  Pokemon,
-  PokemonDetails,
-  PokemonDetailsResponse,
-} from "@/types/pokemon";
+import { PokemonDetailsResponse } from "@/types/api-response";
+import { Pokemon, PokemonDetails } from "@/types/pokemon";
 import { capitalize } from "@/utils/formatters";
 import { calculateStatRange } from "@/utils/stats";
 
@@ -53,5 +50,6 @@ export const pokemonDetailsAdapter = (
     types,
     stats,
     abilities,
+    cryUrl: pokemon.cries.latest || pokemon.cries.legacy,
   };
 };

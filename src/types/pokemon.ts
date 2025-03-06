@@ -47,6 +47,7 @@ export interface PokemonDetails {
   height: number;
   abilities: Ability[];
   stats: Stats[];
+  cryUrl: string;
 }
 
 export interface PokemonSpecie {

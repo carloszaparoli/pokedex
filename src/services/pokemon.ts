@@ -15,6 +15,7 @@ import {
 } from "@/types/api-response";
 import { PokemonType } from "@/types/pokemon";
 import axios from "axios";
+import { notFound } from "next/navigation";
 
 const pokeAPI = axios.create({
   baseURL: "https://pokeapi.co/api/v2",
@@ -34,20 +35,27 @@ export async function getPokemonUrlsByType(type: PokemonType) {
   return data.pokemon.map((p) => p.pokemon);
 }
 
-export async function getPokemonDetails(url: string) {
-  // await new Promise((resolve) => setTimeout(resolve, 2000));
+export async function getPokemonDetailsByUrl(url: string) {
+  // await new Promise((resolve) => setTimeout(resolve, 1000));
 
-  const { data: details } = await pokeAPI.get<PokemonDetailsResponse>(url);
+  const { data: details } = await axios.get<PokemonDetailsResponse>(url);
 
   return pokemonAdapter(details);
 }
 
 export async function getPokemonDetailsByName(name: string) {
-  const { data } = await pokeAPI.get<PokemonDetailsResponse>(
-    `/pokemon/${name}`
-  );
+  try {
+    const { data } = await pokeAPI.get<PokemonDetailsResponse>(
+      `/pokemon/${name}`
+    );
 
-  return pokemonDetailsAdapter(data);
+    return pokemonDetailsAdapter(data);
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response?.status === 404) {
+      notFound();
+    }
+    throw Error("Error searching for pokemon");
+  }
 }
 
 export async function getPokemonSpecieByName(name: string) {

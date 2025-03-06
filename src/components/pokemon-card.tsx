@@ -1,7 +1,12 @@
 import { Pokemon } from "@/types/pokemon";
 import { PokemonTypeIcon } from "./pokemon-type-icon";
-import { capitalize, formatPokemonId } from "@/utils/formatters";
+import {
+  capitalize,
+  formatKebabCaseToTitle,
+  formatPokemonId,
+} from "@/utils/formatters";
 import Image from "next/image";
+import { PatternIcon } from "./icons/pattern-icon";
 
 interface PokemonCardProps {
   pokemon: Pokemon;
@@ -51,20 +56,21 @@ export function PokemonCard({ pokemon }: PokemonCardProps) {
   };
 
   const formattedPokemonId = formatPokemonId(pokemon.id);
-  const formattedPokemonName = capitalize(pokemon.name);
+  const formattedPokemonName = formatKebabCaseToTitle(pokemon.name);
 
   return (
     <a
       href={`/pokemon/${pokemon.name}`}
       className={`${
         bgTypeColors[pokemon.types[0]]
-      } group relative p-5 rounded-lg hover:-translate-y-1 focus:-translate-y-1 transition-transform duration-300 outline-none`}
+      } group relative p-5 rounded-lg hover:-translate-y-1 focus:-translate-y-1 transition-transform duration-300 outline-none bg-[url('/pokeball-gradient.svg')] bg-no-repeat bg-right-top bg-[length:144px]`}
     >
+      <PatternIcon className="absolute w-[74px] left-20 top-1.5" />
       <div className="space-y-2">
         <span className="block text-sm font-semibold text-muted leading-none">
           {formattedPokemonId}
         </span>
-        <span className="text-white block text-2xl font-semibold leading-none">
+        <span className="text-white block text-2xl font-semibold leading-none whitespace-nowrap overflow-hidden text-ellipsis">
           {formattedPokemonName}
         </span>
         <div className="flex gap-1">
@@ -74,10 +80,10 @@ export function PokemonCard({ pokemon }: PokemonCardProps) {
             return (
               <div
                 key={`${pokemon.name}-${type}`}
-                className={`${badgeTypeColors[type]} flex items-center gap-1 text-xs font-medium py-1 px-2 rounded-sm`}
+                className={`${badgeTypeColors[type]} flex items-center gap-1 text-xs font-medium py-1 px-2 rounded-sm text-white`}
               >
                 <PokemonTypeIcon
-                  className="size-3 text-white transition-colors duration-1000"
+                  className="size-3 transition-colors duration-1000"
                   type={type}
                 />
                 {formattedTypeName}

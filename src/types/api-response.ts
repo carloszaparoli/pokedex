@@ -33,6 +33,10 @@ export interface PokemonDetailsResponse {
       name: string;
     };
   }[];
+  cries: {
+    latest: string;
+    legacy: string;
+  };
 }
 
 export interface PokemonSpecieResponse {

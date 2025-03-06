@@ -5,7 +5,7 @@ import { POKEMON_TYPE_LABELS, POKEMON_TYPES } from "@/constants/pokemon";
 import { PokemonTypeIcon } from "./pokemon-type-icon";
 import { twMerge } from "tailwind-merge";
 import { PokemonType } from "@/types/pokemon";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 
 interface PokemonFiltersProps {
   searchQuery: string;
@@ -89,23 +89,30 @@ export function PokemonFilters({
     water: "bg-type-water-primary text-white border-type-water-primary",
   };
 
+  const handleSubmit = (event: FormEvent) => {
+    event.preventDefault();
+    onSearch(search);
+  };
+
   return (
     <div className="space-y-10">
-      <InputRoot className="max-w-[360px] mx-auto">
-        <InputField
-          placeholder="Pokémon name"
-          value={search}
-          disabled={disabledFilters}
-          onChange={(e) => setSearch(e.target.value)}
-        />
-        <Button
-          className="p-1 size-8 -mr-2 cursor-pointer"
-          disabled={disabledFilters}
-          onClick={() => onSearch(search)}
-        >
-          <PokeballIcon className="size-5 text-white" />
-        </Button>
-      </InputRoot>
+      <form onSubmit={handleSubmit}>
+        <InputRoot className="max-w-[360px] mx-auto">
+          <InputField
+            placeholder="Pokémon name"
+            value={search}
+            disabled={disabledFilters}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+          <Button
+            className="p-1 size-8 -mr-2 cursor-pointer"
+            disabled={disabledFilters}
+            type="submit"
+          >
+            <PokeballIcon className="size-5 text-white" />
+          </Button>
+        </InputRoot>
+      </form>
 
       <div className="flex justify-center flex-wrap gap-x-8 gap-y-4 max-w-[800px] mx-auto">
         {POKEMON_TYPES.map((type) => (
@@ -118,10 +125,10 @@ export function PokemonFilters({
           >
             <div
               className={twMerge(
-                `flex items-center justify-center size-12 rounded-full border  mb-1 transition-colors ${iconTypeClasses[type]} ${hoverTypeClasses[type]}`,
+                `flex items-center justify-center size-12 rounded-full border  mb-1 transition-colors duration-300 ${iconTypeClasses[type]} ${hoverTypeClasses[type]}`,
                 selectedType === type
                   ? selectedTypeClasses[type]
-                  : "dark:bg-bluewood-900 dark:border-bluewood-800"
+                  : "bg-white border-gray-200 dark:bg-bluewood-900 dark:border-bluewood-800"
               )}
             >
               <PokemonTypeIcon
@@ -131,8 +138,11 @@ export function PokemonFilters({
             </div>
             <span
               className={twMerge(
-                "dark:text-bluewood-500 text-xs",
-                `${selectedType === type && `dark:text-bluewood-300`}`
+                "text-gray-500 dark:text-bluewood-500 text-xs",
+                `${
+                  selectedType === type &&
+                  `font-medium text-gray-700 dark:text-bluewood-300`
+                }`
               )}
             >
               {POKEMON_TYPE_LABELS[type]}

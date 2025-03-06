@@ -34,28 +34,30 @@ export function StatsTable({ type, stats }: StatsTableProps) {
       <div>
         {stats.map(({ name, value, minValue, maxValue, percentage }) => (
           <div key={name} className="flex items-center gap-4 py-1.5">
-            <span className="w-14 font-bold text-sm">{name}</span>
-            <span className="w-8 dark:text-bluewood-400 text-right text-base">
+            <span className="w-14 font-bold text-sm text-gray-900 dark:text-bluewood-100">
+              {name}
+            </span>
+            <span className="w-8 text-gray-500 dark:text-bluewood-400 text-right text-base">
               {value}
             </span>
 
-            <div className="flex-1 h-2 dark:bg-bluewood-950 rounded-full overflow-hidden">
+            <div className="flex-1 h-2 bg-gray-100 dark:bg-bluewood-950 rounded-full overflow-hidden transition-colors duration-300">
               <div
                 className={`h-full rounded-full ${bgTypePrimaryColors[type]}`}
                 style={{ width: `${percentage}%` }}
               />
             </div>
 
-            <span className="w-8 dark:text-bluewood-400 text-right text-base">
+            <span className="w-8 text-gray-500 dark:text-bluewood-400 text-right text-base">
               {minValue}
             </span>
-            <span className="w-8 dark:text-bluewood-400 text-right text-base">
+            <span className="w-8 text-gray-500 dark:text-bluewood-400 text-right text-base">
               {maxValue}
             </span>
           </div>
         ))}
 
-        <div className="flex items-center font-bold gap-4 pt-1">
+        <div className="flex items-center font-bold gap-4 pt-1 text-gray-900 dark:text-bluewood-100">
           <span className="w-14 font-bold text-sm">Total</span>
           <span className="w-8 text-lg">{total}</span>
           <div className="flex-1"></div>
@@ -63,7 +65,7 @@ export function StatsTable({ type, stats }: StatsTableProps) {
           <span>Max</span>
         </div>
       </div>
-      <p className="text-sm italic dark:text-bluewood-500">
+      <p className="text-sm italic text-gray-400 dark:text-bluewood-500">
         The ranges shown on the top are for a level 100 Pokémon. Maximum values
         are based on a beneficial nature, 252 EVs, 31 IVs; minimum values are
         based on a hindering nature, 0 EVs, 0 IVs.

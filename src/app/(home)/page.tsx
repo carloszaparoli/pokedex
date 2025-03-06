@@ -2,17 +2,16 @@
 
 import {
   getAllPokemonUrls,
-  getPokemonDetails,
+  getPokemonDetailsByUrl,
   getPokemonUrlsByType,
 } from "@/services/pokemon";
-import { Header } from "../../components/header";
 import { PokemonList } from "@/components/pokemon-list";
 import { PokemonFilters } from "@/components/pokemon-filters";
 import { useEffect, useMemo, useState } from "react";
 import { Pokemon, PokemonType, PokemonUrl } from "@/types/pokemon";
 import { useSearchParams } from "next/navigation";
-import { X } from "lucide-react";
-import { POKEMON_TYPE_LABELS } from "@/constants/pokemon";
+import { NoPokemonFound } from "@/components/no-pokemon-found";
+import { PokemonFilterResults } from "@/components/pokemon-filter-results";
 
 export default function HomePage() {
   const searchParams = useSearchParams();
@@ -24,7 +23,8 @@ export default function HomePage() {
   );
   const [totalPokemon, setTotalPokemon] = useState(0);
   const [pokemons, setPokemons] = useState<Pokemon[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoadingUrls, setIsLoadingUrls] = useState(true);
+  const [isLoadingDetails, setIsLoadingDetails] = useState(true);
   const [page, setPage] = useState(Number(searchParams.get("page")) || 1);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedType, setSelectedType] = useState<PokemonType | null>(null);
@@ -37,11 +37,11 @@ export default function HomePage() {
 
   const handleChangeSearchQuery = (value: string) => {
     setSearchQuery(value);
-    setPokemons([]);
+    // setPokemons([]);
   };
 
   const handleSelectType = (type: PokemonType | null) => {
-    setPokemons([]);
+    // setPokemons([]);
     if (selectedType === type) {
       setSelectedType(null);
     } else {
@@ -52,7 +52,7 @@ export default function HomePage() {
   const handleCleanFilter = () => {
     setSelectedType(null);
     setSearchQuery("");
-    setPokemons([]);
+    // setPokemons([]);
   };
 
   // useEffect(() => {
@@ -63,11 +63,14 @@ export default function HomePage() {
 
   useEffect(() => {
     async function fetchAllUrls() {
+      setIsLoadingUrls(true);
       const { results, count } = await getAllPokemonUrls();
 
       setTotalPokemon(count);
       setAllPokemonUrls(results);
       setFilteredPokemonUrls(results);
+
+      setIsLoadingUrls(false);
     }
 
     fetchAllUrls();
@@ -80,7 +83,7 @@ export default function HomePage() {
       if (selectedType) {
         filteredUrls = await getPokemonUrlsByType(selectedType);
       }
-      console.log("searchQuery: ", searchQuery);
+
       if (searchQuery) {
         filteredUrls = filteredUrls.filter((pokemon) =>
           pokemon.name.includes(searchQuery.toLowerCase())
@@ -95,7 +98,10 @@ export default function HomePage() {
     filterPokemons();
   }, [searchQuery, selectedType, allPokemonUrls]);
 
-  const totalPages = Math.ceil(filteredPokemonUrls.length / POKEMONS_PER_PAGE);
+  const totalPages = useMemo(
+    () => Math.ceil(filteredPokemonUrls.length / POKEMONS_PER_PAGE),
+    [filteredPokemonUrls.length]
+  );
 
   const paginatedUrls = useMemo(() => {
     const start = (page - 1) * POKEMONS_PER_PAGE;
@@ -104,33 +110,33 @@ export default function HomePage() {
   }, [filteredPokemonUrls, page]);
 
   useEffect(() => {
+    if (paginatedUrls.length === 0) return;
+
     async function fetchPokemonDetails() {
-      setIsLoading(true);
-
-      console.log(paginatedUrls);
-
+      setIsLoadingDetails(true);
       const details = await Promise.all(
-        paginatedUrls.map((p) => getPokemonDetails(p.url))
+        paginatedUrls.map((p) => getPokemonDetailsByUrl(p.url))
       );
-      setPokemons((prevPokemons) => [...prevPokemons, ...details]);
-      setIsLoading(false);
+      setPokemons(details);
+      setIsLoadingDetails(false);
     }
 
     fetchPokemonDetails();
   }, [paginatedUrls]);
 
-  const hasActiveFilters = !!selectedType || searchQuery;
+  const noPokemonFound =
+    Boolean(totalPokemon === 0) &&
+    (Boolean(selectedType) || Boolean(searchQuery));
 
   return (
     <>
-      <Header />
       <div className="py-8 space-y-10">
         <div className="space-y-10">
           <div>
             <h1 className="text-3xl font-bold text-center leading-none mb-4">
-              Welcome to the Pokédexx! 🔥
+              Welcome to the Pokédex! 🔥
             </h1>
-            <p className="dark:text-bluewood-400 text-center">
+            <p className="text-gray-500 dark:text-bluewood-400 text-center">
               Search for your favorite Pokémon by name or explore them by type
             </p>
           </div>
@@ -140,48 +146,32 @@ export default function HomePage() {
             selectedType={selectedType}
             onSearch={handleChangeSearchQuery}
             onSelectType={handleSelectType}
-            disabledFilters={isLoading}
+            disabledFilters={isLoadingDetails}
           />
         </div>
 
-        <div className="space-y-5">
-          {hasActiveFilters && (
-            <div className="flex items-center justify-between gap-2 border-b dark:border-bluewood-800 py-3">
-              <span className="dark:text-bluewood-400">
-                {totalPokemon} results found for:{" "}
-                {selectedType && !searchQuery && (
-                  <span>
-                    type <strong>{POKEMON_TYPE_LABELS[selectedType]}</strong>
-                  </span>
-                )}
-                {!selectedType && searchQuery && (
-                  <strong>{`"${searchQuery}"`}</strong>
-                )}
-                {selectedType && searchQuery && (
-                  <span>
-                    <strong>{`"${searchQuery}"`}</strong> of type{" "}
-                    <strong>{POKEMON_TYPE_LABELS[selectedType]}</strong>
-                  </span>
-                )}
-              </span>
-              <button
-                className="text-red-200 hover:text-red-500 text-sm font-medium flex items-center gap-1 cursor-pointer"
-                onClick={handleCleanFilter}
-              >
-                <X className="size-4" />
-                Clean filter
-              </button>
-            </div>
-          )}
+        {noPokemonFound ? (
+          <NoPokemonFound />
+        ) : (
+          <div className="space-y-5">
+            <PokemonFilterResults
+              searchQuery={searchQuery}
+              selectedType={selectedType}
+              totalPokemon={totalPokemon}
+              loading={isLoadingUrls}
+              onCleanFilter={handleCleanFilter}
+            />
 
-          <PokemonList
-            loading={isLoading}
-            pokemons={pokemons}
-            page={page}
-            totalPages={totalPages}
-            onChangePage={handleChangePage}
-          />
-        </div>
+            <PokemonList
+              loading={isLoadingDetails}
+              pokemons={pokemons}
+              page={page}
+              totalPages={totalPages}
+              pokemonsPerPage={POKEMONS_PER_PAGE}
+              onChangePage={handleChangePage}
+            />
+          </div>
+        )}
       </div>
     </>
   );
