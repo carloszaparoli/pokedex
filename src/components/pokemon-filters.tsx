@@ -5,7 +5,7 @@ import { POKEMON_TYPE_LABELS, POKEMON_TYPES } from "@/constants/pokemon";
 import { PokemonTypeIcon } from "./pokemon-type-icon";
 import { twMerge } from "tailwind-merge";
 import { PokemonType } from "@/types/pokemon";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 
 interface PokemonFiltersProps {
   searchQuery: string;
@@ -93,6 +93,10 @@ export function PokemonFilters({
     event.preventDefault();
     onSearch(search);
   };
+
+  useEffect(() => {
+    if (!searchQuery) setSearch("");
+  }, [searchQuery]);
 
   return (
     <div className="space-y-10">

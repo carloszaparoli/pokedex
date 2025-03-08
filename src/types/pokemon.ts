@@ -21,7 +21,7 @@ export type PokemonType =
 export interface Pokemon {
   id: number;
   name: string;
-  image: string;
+  image?: string;
   types: PokemonType[];
 }
 
@@ -48,6 +48,7 @@ export interface PokemonDetails {
   abilities: Ability[];
   stats: Stats[];
   cryUrl: string;
+  specieUrl: string;
 }
 
 export interface PokemonSpecie {

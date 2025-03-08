@@ -9,13 +9,14 @@ import { PokemonList } from "@/components/pokemon-list";
 import { PokemonFilters } from "@/components/pokemon-filters";
 import { useEffect, useMemo, useState } from "react";
 import { Pokemon, PokemonType, PokemonUrl } from "@/types/pokemon";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { NoPokemonFound } from "@/components/no-pokemon-found";
 import { PokemonFilterResults } from "@/components/pokemon-filter-results";
+import { POKEMON_TYPES } from "@/constants/pokemon";
 
 export default function HomePage() {
   const searchParams = useSearchParams();
-  // const router = useRouter();
+  const router = useRouter();
 
   const [allPokemonUrls, setAllPokemonUrls] = useState<PokemonUrl[]>([]);
   const [filteredPokemonUrls, setFilteredPokemonUrls] = useState<PokemonUrl[]>(
@@ -25,9 +26,17 @@ export default function HomePage() {
   const [pokemons, setPokemons] = useState<Pokemon[]>([]);
   const [isLoadingUrls, setIsLoadingUrls] = useState(true);
   const [isLoadingDetails, setIsLoadingDetails] = useState(true);
-  const [page, setPage] = useState(Number(searchParams.get("page")) || 1);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [selectedType, setSelectedType] = useState<PokemonType | null>(null);
+  const [page, setPage] = useState<number>(1);
+  const [searchQuery, setSearchQuery] = useState(
+    searchParams.get("search") || ""
+  );
+  const initialType = searchParams.get("type");
+  const [selectedType, setSelectedType] = useState<PokemonType | null>(
+    POKEMON_TYPES.includes(initialType as PokemonType)
+      ? (initialType as PokemonType)
+      : null
+  );
+  const [paginatedUrls, setPaginatedUrls] = useState<PokemonUrl[] | null>(null);
 
   const POKEMONS_PER_PAGE = 15;
 
@@ -37,29 +46,25 @@ export default function HomePage() {
 
   const handleChangeSearchQuery = (value: string) => {
     setSearchQuery(value);
-    // setPokemons([]);
   };
 
   const handleSelectType = (type: PokemonType | null) => {
-    // setPokemons([]);
-    if (selectedType === type) {
-      setSelectedType(null);
-    } else {
-      setSelectedType(type);
-    }
+    setSelectedType(selectedType === type ? null : type);
   };
 
   const handleCleanFilter = () => {
     setSelectedType(null);
     setSearchQuery("");
-    // setPokemons([]);
   };
 
-  // useEffect(() => {
-  //   const params = new URLSearchParams();
-  //   params.set("page", page.toString());
-  //   router.replace(`?${params.toString()}`, { scroll: false });
-  // }, [page, router]);
+  useEffect(() => {
+    const params = new URLSearchParams();
+
+    if (searchQuery) params.set("search", searchQuery);
+    if (selectedType) params.set("type", selectedType);
+
+    router.replace(`?${params.toString()}`, { scroll: false });
+  }, [router, searchQuery, selectedType]);
 
   useEffect(() => {
     async function fetchAllUrls() {
@@ -77,7 +82,10 @@ export default function HomePage() {
   }, []);
 
   useEffect(() => {
+    if (allPokemonUrls.length === 0) return;
+
     async function filterPokemons() {
+      setIsLoadingDetails(true);
       let filteredUrls = allPokemonUrls;
 
       if (selectedType) {
@@ -98,21 +106,19 @@ export default function HomePage() {
     filterPokemons();
   }, [searchQuery, selectedType, allPokemonUrls]);
 
-  const totalPages = useMemo(
-    () => Math.ceil(filteredPokemonUrls.length / POKEMONS_PER_PAGE),
-    [filteredPokemonUrls.length]
-  );
+  useEffect(() => {
+    if (filteredPokemonUrls.length === 0) return;
 
-  const paginatedUrls = useMemo(() => {
     const start = (page - 1) * POKEMONS_PER_PAGE;
     const end = start + POKEMONS_PER_PAGE;
-    return filteredPokemonUrls.slice(start, end);
+
+    setPaginatedUrls(filteredPokemonUrls.slice(start, end));
   }, [filteredPokemonUrls, page]);
 
   useEffect(() => {
-    if (paginatedUrls.length === 0) return;
-
     async function fetchPokemonDetails() {
+      if (paginatedUrls === null) return;
+
       setIsLoadingDetails(true);
       const details = await Promise.all(
         paginatedUrls.map((p) => getPokemonDetailsByUrl(p.url))
@@ -124,9 +130,15 @@ export default function HomePage() {
     fetchPokemonDetails();
   }, [paginatedUrls]);
 
+  const totalPages = useMemo(
+    () => Math.ceil(filteredPokemonUrls.length / POKEMONS_PER_PAGE),
+    [filteredPokemonUrls.length]
+  );
+
   const noPokemonFound =
-    Boolean(totalPokemon === 0) &&
-    (Boolean(selectedType) || Boolean(searchQuery));
+    !isLoadingUrls && // Já carregou a lista de URLs
+    totalPokemon === 0 && // Não há Pokémon após os filtros
+    (selectedType || searchQuery); // Algum filtro foi aplicado
 
   return (
     <>
@@ -146,7 +158,7 @@ export default function HomePage() {
             selectedType={selectedType}
             onSearch={handleChangeSearchQuery}
             onSelectType={handleSelectType}
-            disabledFilters={isLoadingDetails}
+            disabledFilters={false}
           />
         </div>
 

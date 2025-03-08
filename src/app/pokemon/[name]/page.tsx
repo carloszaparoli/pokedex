@@ -12,9 +12,9 @@ import { POKEMON_TYPE_LABELS } from "@/constants/pokemon";
 import {
   getEvolutionChainByName,
   getPokemonDetailsByName,
-  getPokemonSpecieByName,
+  getPokemonSpecieByUrl,
 } from "@/services/pokemon";
-import { capitalize, formatPokemonId } from "@/utils/formatters";
+import { formatKebabCaseToTitle, formatPokemonId } from "@/utils/formatters";
 import Image from "next/image";
 import Link from "next/link";
 import { StatsTable } from "./components/stats-table";
@@ -36,7 +36,7 @@ interface PokemonPageProps {
 export async function generateMetadata({
   params,
 }: PokemonPageProps): Promise<Metadata> {
-  const title = `${capitalize((await params).name)} | Pokédex`;
+  const title = `${formatKebabCaseToTitle((await params).name)} | Pokédex`;
 
   return {
     title,
@@ -47,13 +47,13 @@ export default async function PokemonPage({ params }: PokemonPageProps) {
   const pokemonName = (await params).name;
 
   const pokemonDetails = await getPokemonDetailsByName(pokemonName);
-  const pokemonSpecie = await getPokemonSpecieByName(pokemonName);
+  const pokemonSpecie = await getPokemonSpecieByUrl(pokemonDetails.specieUrl);
   const evolutionChain = await getEvolutionChainByName(
     pokemonSpecie.evolutionChainUrl
   );
 
   const formattedPokemonId = formatPokemonId(pokemonDetails.id);
-  const formattedPokemonName = capitalize(pokemonDetails.name);
+  const formattedPokemonName = formatKebabCaseToTitle(pokemonDetails.name);
 
   const bgTypeColors: { [key: string]: string } = {
     bug: "bg-type-bug-secondary",

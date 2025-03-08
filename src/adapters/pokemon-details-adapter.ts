@@ -1,17 +1,8 @@
 import { STAT_NAME_LABEL } from "@/constants/pokemon";
 import { PokemonDetailsResponse } from "@/types/api-response";
-import { Pokemon, PokemonDetails } from "@/types/pokemon";
+import { PokemonDetails } from "@/types/pokemon";
 import { capitalize } from "@/utils/formatters";
 import { calculateStatRange } from "@/utils/stats";
-
-export const pokemonAdapter = (pokemon: PokemonDetailsResponse): Pokemon => ({
-  id: pokemon.id,
-  name: pokemon.name,
-  image:
-    pokemon.sprites.other?.["official-artwork"]?.front_default ||
-    pokemon.sprites.front_default,
-  types: pokemon.types.map((t) => t.type.name),
-});
 
 export const pokemonDetailsAdapter = (
   pokemon: PokemonDetailsResponse
@@ -51,5 +42,6 @@ export const pokemonDetailsAdapter = (
     stats,
     abilities,
     cryUrl: pokemon.cries.latest || pokemon.cries.legacy,
+    specieUrl: pokemon.species.url,
   };
 };

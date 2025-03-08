@@ -9,7 +9,7 @@ export default function NotFound() {
         width="500"
         viewBox="0 0 911 360"
         fill="none"
-        className="transition-colors duration-300 text-gray-200 dark:text-bluewood-800"
+        className="text-gray-200 dark:text-bluewood-800"
       >
         <path
           d="M224.609 221.084H260.742V284.561H224.609V360H142.334V284.561H4.88281L0 234.268L142.334 5.26367V4.53125H224.609V221.084ZM78.3691 221.084H142.334V111.709L137.207 120.01L78.3691 221.084Z"
@@ -54,10 +54,8 @@ export default function NotFound() {
           fill="white"
         />
       </svg>
-      <h1 className="text-4xl font-bold mt-8 mb-2 transition-colors">
-        Page not found
-      </h1>
-      <p className="transition-colors duration-300 text-gray-500 dark:text-bluewood-500 mb-12">
+      <h1 className="text-4xl font-bold mt-8 mb-2">Page not found</h1>
+      <p className="text-gray-500 dark:text-bluewood-500 mb-12">
         You look lost on your journey!
       </p>
       <Link

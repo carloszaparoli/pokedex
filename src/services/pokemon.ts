@@ -1,9 +1,7 @@
 import { mapEvolutionChain } from "@/adapters/evolution-chain-adapter";
 import { itemInfoAdapter } from "@/adapters/item-info-adapter";
-import {
-  pokemonAdapter,
-  pokemonDetailsAdapter,
-} from "@/adapters/pokemon-adapter";
+import { pokemonDetailsAdapter } from "@/adapters/pokemon-details-adapter";
+import { pokemonSimpleDetailsAdapter } from "@/adapters/pokemon-simple-details-adapter";
 import { pokemonSpecieAdapter } from "@/adapters/pokemon-specie-adapter";
 import {
   EvolutionChainResponse,
@@ -36,11 +34,11 @@ export async function getPokemonUrlsByType(type: PokemonType) {
 }
 
 export async function getPokemonDetailsByUrl(url: string) {
-  // await new Promise((resolve) => setTimeout(resolve, 1000));
+  await new Promise((resolve) => setTimeout(resolve, 1000));
 
   const { data: details } = await axios.get<PokemonDetailsResponse>(url);
 
-  return pokemonAdapter(details);
+  return pokemonSimpleDetailsAdapter(details);
 }
 
 export async function getPokemonDetailsByName(name: string) {
@@ -58,10 +56,8 @@ export async function getPokemonDetailsByName(name: string) {
   }
 }
 
-export async function getPokemonSpecieByName(name: string) {
-  const { data } = await pokeAPI.get<PokemonSpecieResponse>(
-    `/pokemon-species/${name}`
-  );
+export async function getPokemonSpecieByUrl(url: string) {
+  const { data } = await axios.get<PokemonSpecieResponse>(url);
 
   return pokemonSpecieAdapter(data);
 }

@@ -1,12 +1,9 @@
 import { Pokemon } from "@/types/pokemon";
 import { PokemonTypeIcon } from "./pokemon-type-icon";
-import {
-  capitalize,
-  formatKebabCaseToTitle,
-  formatPokemonId,
-} from "@/utils/formatters";
+import { formatKebabCaseToTitle, formatPokemonId } from "@/utils/formatters";
 import Image from "next/image";
 import { PatternIcon } from "./icons/pattern-icon";
+import { POKEMON_TYPE_LABELS } from "@/constants/pokemon";
 
 interface PokemonCardProps {
   pokemon: Pokemon;
@@ -74,31 +71,29 @@ export function PokemonCard({ pokemon }: PokemonCardProps) {
           {formattedPokemonName}
         </span>
         <div className="flex gap-1">
-          {pokemon.types.map((type) => {
-            const formattedTypeName = capitalize(type);
-
-            return (
-              <div
-                key={`${pokemon.name}-${type}`}
-                className={`${badgeTypeColors[type]} flex items-center gap-1 text-xs font-medium py-1 px-2 rounded-sm text-white`}
-              >
-                <PokemonTypeIcon
-                  className="size-3 transition-colors duration-1000"
-                  type={type}
-                />
-                {formattedTypeName}
-              </div>
-            );
-          })}
+          {pokemon.types.map((type) => (
+            <div
+              key={`${pokemon.name}-${type}`}
+              className={`${badgeTypeColors[type]} flex items-center gap-1 text-xs font-medium py-1 px-2 rounded-sm text-white`}
+            >
+              <PokemonTypeIcon
+                className="size-3 transition-colors duration-1000"
+                type={type}
+              />
+              {POKEMON_TYPE_LABELS[type]}
+            </div>
+          ))}
         </div>
       </div>
-      <Image
-        src={pokemon.image}
-        width={130}
-        height={130}
-        alt={pokemon.name}
-        className="absolute right-5 -top-5 group-hover:animate-bounceSmooth group-focus:animate-bounceSmooth"
-      />
+      {pokemon.image && (
+        <Image
+          src={pokemon.image}
+          width={130}
+          height={130}
+          alt={pokemon.name}
+          className="absolute right-5 -top-5 group-hover:animate-bounceSmooth group-focus:animate-bounceSmooth"
+        />
+      )}
     </a>
   );
 }
