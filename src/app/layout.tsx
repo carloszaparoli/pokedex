@@ -22,6 +22,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${roboto.variable}`} suppressHydrationWarning>
+      <head>
+        <link rel="shortcut icon" href="favicon.png" type="image/png" />
+      </head>
       <body className="bg-gray-100 dark:bg-bluewood-950 antialiased transition-colors duration-300">
         <ThemeProvider attribute="class">
           <main className="max-w-[1024px] mx-auto py-0 md:py-4">

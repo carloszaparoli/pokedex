@@ -6,7 +6,7 @@ import { GithubIcon } from "./icons/github-icon";
 
 export function Header() {
   return (
-    <div className="bg-white shadow-md shadow-gray-200 dark:shadow-none dark:bg-bluewood-900 w-full h-16 px-4 flex items-center justify-between rounded-lg transition-colors duration-300">
+    <div className="bg-white shadow-md shadow-gray-200 dark:shadow-none dark:bg-bluewood-900 w-full h-16 px-4 flex items-center justify-between md:rounded-lg transition-colors duration-300">
       <a
         href="https://github.com/carloszaparoli/pokedex"
         title="GitHub repository"

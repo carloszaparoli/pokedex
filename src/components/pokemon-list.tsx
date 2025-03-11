@@ -27,7 +27,7 @@ export function PokemonList({
 }: PokemonListProps) {
   return (
     <div>
-      <div className="grid grid-cols-3 gap-5 mb-12">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-10 md:mb-12">
         {loading
           ? Array.from({ length: pokemonsPerPage }).map((_i, index) => (
               <PokemonSkeletonCard key={index} />

@@ -3,7 +3,6 @@
 //     "https://pokeapi.co/api/v2/pokemon?offset=0&limit=2000"
 //   ).then((res) => res.json());
 
-import { ArrowLeftIcon } from "@/components/icons/arrow-left-icon";
 import { FemaleGenderIcon } from "@/components/icons/female-gender-icon";
 import { MaleGenderIcon } from "@/components/icons/male-gender-icon";
 import { PatternIcon } from "@/components/icons/pattern-icon";
@@ -16,11 +15,11 @@ import {
 } from "@/services/pokemon";
 import { formatKebabCaseToTitle, formatPokemonId } from "@/utils/formatters";
 import Image from "next/image";
-import Link from "next/link";
 import { StatsTable } from "./components/stats-table";
 import { Evolutions } from "./components/evolutions";
 import { Metadata } from "next";
 import { PokemonCryButton } from "./components/pokemon-cry-button";
+import { BackButton } from "./components/back-button";
 
 //   return data.results.map((pokemon: { name: string }) => {
 //     return {
@@ -123,23 +122,18 @@ export default async function PokemonPage({ params }: PokemonPageProps) {
   return (
     <div>
       <div
-        className={`w-full max-w-[700px] mx-auto overflow-hidden rounded-2xl mt-12 ${bgTypeColors[firstType]}`}
+        className={`w-full max-w-[700px] mx-auto overflow-hidden md:rounded-2xl md:mt-12 ${bgTypeColors[firstType]}`}
       >
         <div
           className={`relative flex items-center justify-around p-8 bg-[url(/pokeball-gradient.svg)] bg-no-repeat bg-[position:right_-24px_top_-24px] bg-[length:256px] 
           `}
         >
-          <Link
-            href="/"
-            className="absolute left-8 top-8 transition-opacity hover:opacity-50"
-          >
-            <ArrowLeftIcon className="text-white size-7" />
-          </Link>
+          <BackButton />
           <div className="space-y-2">
             <span className="block text-muted text-xl font-semibold leading-none ">
               {formattedPokemonId}
             </span>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-4">
               <h1 className="block text-4xl text-white font-bold leading-none">
                 {formattedPokemonName}
               </h1>
@@ -169,7 +163,7 @@ export default async function PokemonPage({ params }: PokemonPageProps) {
           />
         </div>
 
-        <div className="relative p-8 bg-white dark:bg-bluewood-900 border border-gray-200 dark:border-bluewood-800 rounded-t-4xl space-y-10 transition-colors duration-300">
+        <div className="relative p-8 bg-white dark:bg-bluewood-900 md:border border-gray-200 dark:border-bluewood-800 rounded-t-4xl space-y-10 transition-colors duration-300">
           <p className="text-gray-500 dark:text-bluewood-400">
             {pokemonSpecie.description}
           </p>

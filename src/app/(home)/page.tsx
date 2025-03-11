@@ -73,7 +73,6 @@ export default function HomePage() {
 
       setTotalPokemon(count);
       setAllPokemonUrls(results);
-      setFilteredPokemonUrls(results);
 
       setIsLoadingUrls(false);
     }
@@ -142,7 +141,7 @@ export default function HomePage() {
 
   return (
     <>
-      <div className="py-8 space-y-10">
+      <div className="py-8 px-4 lg:px-0 space-y-8 md:space-y-10">
         <div className="space-y-10">
           <div>
             <h1 className="text-3xl font-bold text-center leading-none mb-4">
@@ -158,7 +157,6 @@ export default function HomePage() {
             selectedType={selectedType}
             onSearch={handleChangeSearchQuery}
             onSelectType={handleSelectType}
-            disabledFilters={false}
           />
         </div>
 

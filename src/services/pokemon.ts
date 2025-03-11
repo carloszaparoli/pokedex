@@ -34,7 +34,7 @@ export async function getPokemonUrlsByType(type: PokemonType) {
 }
 
 export async function getPokemonDetailsByUrl(url: string) {
-  await new Promise((resolve) => setTimeout(resolve, 1000));
+  // await new Promise((resolve) => setTimeout(resolve, 1000));
 
   const { data: details } = await axios.get<PokemonDetailsResponse>(url);
 

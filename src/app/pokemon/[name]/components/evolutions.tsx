@@ -37,13 +37,13 @@ export function Evolutions({ evolutions }: EvolutionChainProps) {
             className="flex items-center justify-between"
           >
             <Link href={`/pokemon/${from.name}`} className="group text-center">
-              <div className="p-3 bg-[url(/pokeball-gradient-light.svg)] dark:bg-[url(/pokeball-gradient-dark.svg)] bg-no-repeat bg-[length:156px]">
+              <div className="p-3 bg-[url(/pokeball-gradient-light.svg)] dark:bg-[url(/pokeball-gradient-dark.svg)] bg-no-repeat md:bg-[length:156px] bg-[length:112px]">
                 <Image
                   src={from.image}
                   alt={formattedFromPokemonName}
                   width={132}
                   height={132}
-                  className="group-hover:-translate-y-1 group-focus:-translate-y-1 transition-transform duration-300"
+                  className="group-hover:-translate-y-1 group-focus:-translate-y-1 transition-transform duration-300 md:size-[132px] size-[88px]"
                 />
               </div>
               <span className="text-sm font-medium text-gray-400 dark:text-bluewood-500">
@@ -77,13 +77,13 @@ export function Evolutions({ evolutions }: EvolutionChainProps) {
             </div>
 
             <Link href={`/pokemon/${to.name}`} className="group text-center">
-              <div className="p-3 bg-[url(/pokeball-gradient-light.svg)] dark:bg-[url(/pokeball-gradient-dark.svg)] bg-no-repeat bg-[length:156px]">
+              <div className="p-3 bg-[url(/pokeball-gradient-light.svg)] dark:bg-[url(/pokeball-gradient-dark.svg)] bg-no-repeat md:bg-[length:156px] bg-[length:112px]">
                 <Image
                   src={to.image}
                   alt={formattedToPokemonName}
                   width={132}
                   height={132}
-                  className="group-hover:-translate-y-1 group-focus:-translate-y-1 transition-transform duration-300"
+                  className="group-hover:-translate-y-1 group-focus:-translate-y-1 transition-transform duration-300 md:size-[132px] size-[88px]"
                 />
               </div>
               <span className="text-sm font-medium text-gray-400 dark:text-bluewood-500">

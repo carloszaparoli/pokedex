@@ -10,7 +10,6 @@ import { FormEvent, useEffect, useState } from "react";
 interface PokemonFiltersProps {
   searchQuery: string;
   selectedType: PokemonType | null;
-  disabledFilters: boolean;
   onSearch: (value: string) => void;
   onSelectType: (type: PokemonType | null) => void;
 }
@@ -18,7 +17,6 @@ interface PokemonFiltersProps {
 export function PokemonFilters({
   searchQuery,
   selectedType,
-  disabledFilters,
   onSearch,
   onSelectType,
 }: PokemonFiltersProps) {
@@ -99,32 +97,26 @@ export function PokemonFilters({
   }, [searchQuery]);
 
   return (
-    <div className="space-y-10">
+    <div className="space-y-8 md:space-y-10">
       <form onSubmit={handleSubmit}>
-        <InputRoot className="max-w-[360px] mx-auto">
+        <InputRoot className="w-full max-w-[360px] mx-auto">
           <InputField
             placeholder="Pokémon name"
             value={search}
-            disabled={disabledFilters}
             onChange={(e) => setSearch(e.target.value)}
           />
-          <Button
-            className="p-1 size-8 -mr-2 cursor-pointer"
-            disabled={disabledFilters}
-            type="submit"
-          >
+          <Button className="p-1 size-8 -mr-2 cursor-pointer" type="submit">
             <PokeballIcon className="size-5 text-white" />
           </Button>
         </InputRoot>
       </form>
 
-      <div className="flex justify-center flex-wrap gap-x-8 gap-y-4 max-w-[800px] mx-auto">
+      <div className="flex gap-x-6 overflow-y-auto md:justify-center md:flex-wrap  md:gap-x-8 md:gap-y-4 md:max-w-[800px] md:mx-auto">
         {POKEMON_TYPES.map((type) => (
           <button
             key={type}
             type="button"
             className="group cursor-pointer"
-            disabled={disabledFilters}
             onClick={() => onSelectType(type)}
           >
             <div
