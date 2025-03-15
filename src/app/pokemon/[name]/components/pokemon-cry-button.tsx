@@ -18,6 +18,7 @@ export function PokemonCryButton({ cryUrl }: PokemonCryButtonProps) {
       }
     } catch (error) {
       console.error("Error playing audio: ", error);
+      alert(`Error playing audio: ${error}`);
     }
   };
 

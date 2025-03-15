@@ -25,7 +25,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${roboto.variable}`} suppressHydrationWarning>
       <body className="dark:bg-bluewood-950 bg-gray-100 antialiased transition-colors duration-300">
-        <ThemeProvider attribute="class">
+        <ThemeProvider defaultTheme="dark" attribute="class">
           <main className="mx-auto max-w-[1024px] py-0 md:py-4">
             <Header />
             <Suspense>{children}</Suspense>

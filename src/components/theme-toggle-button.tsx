@@ -26,11 +26,11 @@ export function ThemeToggle() {
       onClick={toggleTheme}
       title={isDark ? "Light mode" : "Dark mode"}
       className={twMerge(
-        "group cursor-pointer size-10 flex items-center justify-center rounded-full",
-        "transition-colors duration-300 border bg-white dark:bg-bluewood-800",
+        "group flex size-10 cursor-pointer items-center justify-center rounded-full",
+        "dark:bg-bluewood-800 border bg-white transition-colors duration-300",
         isDark
           ? "border-bluewood-700 hover:bg-type-electric-secondary hover:border-type-electric-secondary"
-          : "border-gray-200 hover:bg-type-ghost-primary hover:border-type-ghost-primary"
+          : "hover:bg-type-ghost-primary hover:border-type-ghost-primary border-gray-200",
       )}
     >
       {isDark ? (
