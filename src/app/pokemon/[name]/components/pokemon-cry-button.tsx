@@ -1,7 +1,7 @@
 "use client";
 
 import { Volume2 } from "lucide-react";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 
 interface PokemonCryButtonProps {
   cryUrl: string;
@@ -10,10 +10,6 @@ interface PokemonCryButtonProps {
 export function PokemonCryButton({ cryUrl }: PokemonCryButtonProps) {
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  useEffect(() => {
-    audioRef.current = new Audio(cryUrl);
-  }, [cryUrl]);
-
   const playCry = () => {
     try {
       if (audioRef.current) {
@@ -21,12 +17,13 @@ export function PokemonCryButton({ cryUrl }: PokemonCryButtonProps) {
         audioRef.current.play();
       }
     } catch (error) {
-      console.error(error);
+      console.error("Error playing audio: ", error);
     }
   };
 
   return (
     <div className="flex gap-2">
+      <audio ref={audioRef} src={cryUrl}></audio>
       <button
         onClick={playCry}
         className="flex h-10 cursor-pointer items-center justify-center gap-2 rounded-lg bg-red-200 px-4 text-white transition-colors duration-300 hover:bg-red-500"
