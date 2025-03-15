@@ -14,7 +14,10 @@ export function PokemonCryButton({ cryUrl }: PokemonCryButtonProps) {
     try {
       if (audioRef.current) {
         audioRef.current.currentTime = 0;
-        audioRef.current.play();
+        audioRef.current.play().catch((error) => {
+          console.error("Error playing audio: ", error);
+          alert(`Error playing audio: ${error}`);
+        });
       }
     } catch (error) {
       console.error("Error playing audio: ", error);
@@ -24,6 +27,10 @@ export function PokemonCryButton({ cryUrl }: PokemonCryButtonProps) {
 
   return (
     <div className="flex gap-2">
+      <audio controls>
+        <source src={cryUrl} type="audio/ogg" />
+        Seu navegador não suporta o elemento de áudio.
+      </audio>
       <audio ref={audioRef} src={cryUrl}></audio>
       <button
         onClick={playCry}
