@@ -5,7 +5,7 @@ import { POKEMON_TYPE_LABELS, POKEMON_TYPES } from "@/constants/pokemon";
 import { PokemonTypeIcon } from "./pokemon-type-icon";
 import { twMerge } from "tailwind-merge";
 import { PokemonType } from "@/types/pokemon";
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 
 interface PokemonFiltersProps {
   searchQuery: string;
@@ -21,6 +21,7 @@ export function PokemonFilters({
   onSelectType,
 }: PokemonFiltersProps) {
   const [search, setSearch] = useState(searchQuery);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const iconTypeClasses: Record<PokemonType, string> = {
     bug: "text-type-bug-primary",
@@ -90,6 +91,7 @@ export function PokemonFilters({
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
     onSearch(search);
+    inputRef.current?.blur();
   };
 
   useEffect(() => {
@@ -101,6 +103,7 @@ export function PokemonFilters({
       <form onSubmit={handleSubmit}>
         <InputRoot className="mx-auto w-full max-w-[360px]">
           <InputField
+            ref={inputRef}
             placeholder="Pokémon name"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
