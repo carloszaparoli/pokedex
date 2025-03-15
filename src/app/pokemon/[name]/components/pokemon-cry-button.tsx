@@ -27,10 +27,6 @@ export function PokemonCryButton({ cryUrl }: PokemonCryButtonProps) {
 
   return (
     <div className="flex gap-2">
-      <audio controls>
-        <source src={cryUrl} type="audio/ogg" />
-        Seu navegador não suporta o elemento de áudio.
-      </audio>
       <audio ref={audioRef} src={cryUrl}></audio>
       <button
         onClick={playCry}
