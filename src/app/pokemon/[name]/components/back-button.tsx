@@ -8,10 +8,10 @@ export function BackButton() {
 
   return (
     <button
-      className="cursor-pointer absolute left-8 top-8 transition-opacity hover:opacity-50"
+      className="cursor-pointer transition-opacity hover:opacity-50"
       onClick={() => router.back()}
     >
-      <ArrowLeftIcon className="text-white size-7" />
+      <ArrowLeftIcon className="size-6 text-white md:size-7" />
     </button>
   );
 }

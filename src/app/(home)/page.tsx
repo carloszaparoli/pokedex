@@ -7,12 +7,13 @@ import {
 } from "@/services/pokemon";
 import { PokemonList } from "@/components/pokemon-list";
 import { PokemonFilters } from "@/components/pokemon-filters";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Pokemon, PokemonType, PokemonUrl } from "@/types/pokemon";
 import { useRouter, useSearchParams } from "next/navigation";
 import { NoPokemonFound } from "@/components/no-pokemon-found";
 import { PokemonFilterResults } from "@/components/pokemon-filter-results";
 import { POKEMON_TYPES } from "@/constants/pokemon";
+import { pokemonDetailsAdapter } from "@/adapters/pokemon-details-adapter";
 
 export default function HomePage() {
   const searchParams = useSearchParams();
@@ -20,7 +21,7 @@ export default function HomePage() {
 
   const [allPokemonUrls, setAllPokemonUrls] = useState<PokemonUrl[]>([]);
   const [filteredPokemonUrls, setFilteredPokemonUrls] = useState<PokemonUrl[]>(
-    []
+    [],
   );
   const [totalPokemon, setTotalPokemon] = useState(0);
   const [pokemons, setPokemons] = useState<Pokemon[]>([]);
@@ -28,20 +29,26 @@ export default function HomePage() {
   const [isLoadingDetails, setIsLoadingDetails] = useState(true);
   const [page, setPage] = useState<number>(1);
   const [searchQuery, setSearchQuery] = useState(
-    searchParams.get("search") || ""
+    searchParams.get("search") || "",
   );
   const initialType = searchParams.get("type");
   const [selectedType, setSelectedType] = useState<PokemonType | null>(
     POKEMON_TYPES.includes(initialType as PokemonType)
       ? (initialType as PokemonType)
-      : null
+      : null,
   );
   const [paginatedUrls, setPaginatedUrls] = useState<PokemonUrl[] | null>(null);
+  const listRef = useRef<HTMLDivElement>(null);
 
   const POKEMONS_PER_PAGE = 15;
 
   const handleChangePage = (newPage: number) => {
     setPage(newPage);
+    setTimeout(() => {
+      if (listRef.current && window.innerWidth < 768) {
+        listRef.current.scrollIntoView({ behavior: "smooth" });
+      }
+    }, 200);
   };
 
   const handleChangeSearchQuery = (value: string) => {
@@ -93,7 +100,7 @@ export default function HomePage() {
 
       if (searchQuery) {
         filteredUrls = filteredUrls.filter((pokemon) =>
-          pokemon.name.includes(searchQuery.toLowerCase())
+          pokemon.name.includes(searchQuery.toLowerCase()),
         );
       }
 
@@ -120,7 +127,10 @@ export default function HomePage() {
 
       setIsLoadingDetails(true);
       const details = await Promise.all(
-        paginatedUrls.map((p) => getPokemonDetailsByUrl(p.url))
+        paginatedUrls.map(async (p) => {
+          const response = await getPokemonDetailsByUrl(p.url);
+          return pokemonDetailsAdapter(response);
+        }),
       );
       setPokemons(details);
       setIsLoadingDetails(false);
@@ -131,7 +141,7 @@ export default function HomePage() {
 
   const totalPages = useMemo(
     () => Math.ceil(filteredPokemonUrls.length / POKEMONS_PER_PAGE),
-    [filteredPokemonUrls.length]
+    [filteredPokemonUrls.length],
   );
 
   const noPokemonFound =
@@ -141,13 +151,13 @@ export default function HomePage() {
 
   return (
     <>
-      <div className="py-8 px-4 lg:px-0 space-y-8 md:space-y-10">
-        <div className="space-y-10">
+      <div className="space-y-5 px-4 py-8 md:space-y-10 lg:px-0">
+        <div className="space-y-5 md:space-y-10">
           <div>
-            <h1 className="text-3xl font-bold text-center leading-none mb-4">
+            <h1 className="mb-4 text-center text-2xl leading-none font-bold md:text-3xl">
               Welcome to the Pokédex! 🔥
             </h1>
-            <p className="text-gray-500 dark:text-bluewood-400 text-center">
+            <p className="dark:text-bluewood-400 text-center text-gray-500">
               Search for your favorite Pokémon by name or explore them by type
             </p>
           </div>
@@ -163,7 +173,7 @@ export default function HomePage() {
         {noPokemonFound ? (
           <NoPokemonFound />
         ) : (
-          <div className="space-y-5">
+          <div className="space-y-5" ref={listRef}>
             <PokemonFilterResults
               searchQuery={searchQuery}
               selectedType={selectedType}

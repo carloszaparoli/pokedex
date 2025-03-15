@@ -3,17 +3,18 @@ import { EvolutionChainResponse, EvolutionNode } from "@/types/api-response";
 import { EvolutionChain, ItemInfo, PokemonDetails } from "@/types/pokemon";
 
 export async function mapEvolutionChain(
-  chain: EvolutionChainResponse
+  chain: EvolutionChainResponse,
 ): Promise<EvolutionChain[]> {
   const evolutionSteps: EvolutionChain[] = [];
 
   async function traverseEvolution(
     current: EvolutionNode,
-    from: PokemonDetails
+    from: PokemonDetails,
   ) {
     if (!current.evolves_to || current.evolves_to.length === 0) return;
 
     for (const next of current.evolves_to) {
+      console.log(next.species.name);
       const to = await getPokemonDetailsByName(next.species.name);
       const detail = next.evolution_details[0];
       let item: ItemInfo | undefined;
@@ -32,7 +33,6 @@ export async function mapEvolutionChain(
       await traverseEvolution(next, to);
     }
   }
-
   const firstPokemon = await getPokemonDetailsByName(chain.chain.species.name);
   await traverseEvolution(chain.chain, firstPokemon);
 

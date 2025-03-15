@@ -1,15 +1,10 @@
-// export async function generateStaticParams() {
-//   const data = await fetch(
-//     "https://pokeapi.co/api/v2/pokemon?offset=0&limit=2000"
-//   ).then((res) => res.json());
-
 import { FemaleGenderIcon } from "@/components/icons/female-gender-icon";
 import { MaleGenderIcon } from "@/components/icons/male-gender-icon";
 import { PatternIcon } from "@/components/icons/pattern-icon";
 import { PokemonTypeIcon } from "@/components/pokemon-type-icon";
 import { POKEMON_TYPE_LABELS } from "@/constants/pokemon";
 import {
-  getEvolutionChainByName,
+  getEvolutionChainByUrl,
   getPokemonDetailsByName,
   getPokemonSpecieByUrl,
 } from "@/services/pokemon";
@@ -21,13 +16,6 @@ import { Metadata } from "next";
 import { PokemonCryButton } from "./components/pokemon-cry-button";
 import { BackButton } from "./components/back-button";
 
-//   return data.results.map((pokemon: { name: string }) => {
-//     return {
-//       slug: pokemon.name,
-//     };
-//   });
-// }
-
 interface PokemonPageProps {
   params: Promise<{ name: string }>;
 }
@@ -35,10 +23,15 @@ interface PokemonPageProps {
 export async function generateMetadata({
   params,
 }: PokemonPageProps): Promise<Metadata> {
-  const title = `${formatKebabCaseToTitle((await params).name)} | Pokédex`;
+  const name = (await params).name;
+  const title = `${formatKebabCaseToTitle(name)} | Pokédex`;
+  const { image } = await getPokemonDetailsByName(name);
+
+  const icon = image ?? "/favicon.png";
 
   return {
     title,
+    icons: icon,
   };
 }
 
@@ -47,8 +40,8 @@ export default async function PokemonPage({ params }: PokemonPageProps) {
 
   const pokemonDetails = await getPokemonDetailsByName(pokemonName);
   const pokemonSpecie = await getPokemonSpecieByUrl(pokemonDetails.specieUrl);
-  const evolutionChain = await getEvolutionChainByName(
-    pokemonSpecie.evolutionChainUrl
+  const evolutionChain = await getEvolutionChainByUrl(
+    pokemonSpecie.evolutionChainUrl,
   );
 
   const formattedPokemonId = formatPokemonId(pokemonDetails.id);
@@ -122,49 +115,51 @@ export default async function PokemonPage({ params }: PokemonPageProps) {
   return (
     <div>
       <div
-        className={`w-full max-w-[700px] mx-auto overflow-hidden md:rounded-2xl md:mt-12 ${bgTypeColors[firstType]}`}
+        className={`mx-auto w-full overflow-hidden md:mt-12 md:max-w-[700px] md:rounded-2xl ${bgTypeColors[firstType]}`}
       >
         <div
-          className={`relative flex items-center justify-around p-8 bg-[url(/pokeball-gradient.svg)] bg-no-repeat bg-[position:right_-24px_top_-24px] bg-[length:256px] 
-          `}
+          className={`relative bg-[url(/pokeball-gradient.svg)] bg-[length:256px] bg-[position:right_-24px_top_-24px] bg-no-repeat p-5 pb-8 md:p-8`}
         >
           <BackButton />
-          <div className="space-y-2">
-            <span className="block text-muted text-xl font-semibold leading-none ">
-              {formattedPokemonId}
-            </span>
-            <div className="flex items-center gap-4">
-              <h1 className="block text-4xl text-white font-bold leading-none">
+          <div className="relative z-10 flex items-center justify-between md:justify-around">
+            <div className="space-y-1 md:space-y-2">
+              <span className="text-muted block text-lg leading-none font-semibold md:text-xl">
+                {formattedPokemonId}
+              </span>
+              <h1 className="block text-3xl font-bold text-white md:text-4xl">
                 {formattedPokemonName}
               </h1>
-              <PokemonCryButton cryUrl={pokemonDetails.cryUrl} />
+              <div className="flex gap-1">
+                {pokemonDetails.types.map((type) => (
+                  <div
+                    key={`${pokemonDetails.name}-${type}`}
+                    className={`${badgeTypeColors[type]} flex items-center gap-1 rounded-sm px-2 py-1 text-xs font-medium text-white md:text-sm`}
+                  >
+                    <PokemonTypeIcon
+                      className="size-3 transition-colors duration-1000 md:size-3.5"
+                      type={type}
+                    />
+                    {POKEMON_TYPE_LABELS[type]}
+                  </div>
+                ))}
+              </div>
             </div>
-            <div className="flex gap-1">
-              {pokemonDetails.types.map((type) => (
-                <div
-                  key={`${pokemonDetails.name}-${type}`}
-                  className={`${badgeTypeColors[type]} text-white flex items-center gap-1 text-sm font-medium py-1 px-2 rounded-sm`}
-                >
-                  <PokemonTypeIcon
-                    className="size-3.5 transition-colors duration-1000"
-                    type={type}
-                  />
-                  {POKEMON_TYPE_LABELS[type]}
-                </div>
-              ))}
-            </div>
+
+            {pokemonDetails.image && (
+              <Image
+                src={pokemonDetails.image}
+                width={220}
+                height={220}
+                className="size-[150px] md:size-[220px]"
+                alt={pokemonDetails.name}
+              />
+            )}
           </div>
-          <PatternIcon className="absolute left-8 bottom-0 w-[140px]" />
-          <Image
-            src={pokemonDetails.image}
-            width={220}
-            height={220}
-            alt={pokemonDetails.name}
-          />
+          <PatternIcon className="absolute bottom-0 left-8 w-[120px] md:w-[140px]" />
         </div>
 
-        <div className="relative p-8 bg-white dark:bg-bluewood-900 md:border border-gray-200 dark:border-bluewood-800 rounded-t-4xl space-y-10 transition-colors duration-300">
-          <p className="text-gray-500 dark:text-bluewood-400">
+        <div className="dark:bg-bluewood-900 dark:border-bluewood-800 relative space-y-10 rounded-t-4xl border-gray-200 bg-white p-5 py-8 transition-colors duration-300 md:border md:p-8">
+          <p className="dark:text-bluewood-400 text-base text-gray-500">
             {pokemonSpecie.description}
           </p>
 
@@ -174,40 +169,46 @@ export default async function PokemonPage({ params }: PokemonPageProps) {
             </h4>
             <div className="space-y-5">
               <div className="flex items-center">
-                <span className="block font-medium w-[148px] text-gray-900 dark:text-bluewood-100">
+                <span className="dark:text-bluewood-100 block w-[148px] font-medium text-gray-900">
                   Height
                 </span>
-                <span className="block text-lg text-gray-500 dark:text-bluewood-400">
+                <span className="dark:text-bluewood-400 block text-lg text-gray-500">
                   {pokemonDetails.height}m
                 </span>
               </div>
               <div className="flex items-center">
-                <span className="block font-medium w-[148px] text-gray-900 dark:text-bluewood-100">
+                <span className="dark:text-bluewood-100 block w-[148px] font-medium text-gray-900">
                   Weight
                 </span>
-                <span className="block text-lg text-gray-500 dark:text-bluewood-400">
+                <span className="dark:text-bluewood-400 block text-lg text-gray-500">
                   {pokemonDetails.weight}kg
                 </span>
               </div>
               <div className="flex">
-                <span className="block font-medium w-[148px] text-gray-900 dark:text-bluewood-100">
+                <span className="dark:text-bluewood-100 block w-[148px] font-medium text-gray-900">
                   Abilities
                 </span>
                 <div className="space-y-2">
                   {pokemonDetails.abilities.map(({ name, isHidden }) => (
                     <span
                       key={name}
-                      className={`block text-gray-500 dark:text-bluewood-400 ${
+                      className={`dark:text-bluewood-400 block text-gray-500 ${
                         isHidden ? "text-sm" : "text-lg"
                       }`}
                     >
                       {name}
                       {isHidden && (
-                        <span className="italic ml-1">(hidden ability)</span>
+                        <span className="ml-1 italic">(hidden ability)</span>
                       )}
                     </span>
                   ))}
                 </div>
+              </div>
+              <div className="flex">
+                <span className="dark:text-bluewood-100 block w-[148px] font-medium text-gray-900">
+                  Cry Sound
+                </span>
+                <PokemonCryButton cryUrl={pokemonDetails.cryUrl} />
               </div>
             </div>
           </div>
@@ -218,18 +219,18 @@ export default async function PokemonPage({ params }: PokemonPageProps) {
             </h4>
             <div className="space-y-5">
               <div className="flex items-center">
-                <span className="block font-medium w-[148px] text-gray-900 dark:text-bluewood-100">
+                <span className="dark:text-bluewood-100 block w-[148px] font-medium text-gray-900">
                   Catch Rate
                 </span>
-                <span className="block text-lg text-gray-500 dark:text-bluewood-400">
+                <span className="dark:text-bluewood-400 block text-lg text-gray-500">
                   {pokemonSpecie.captureRate}
                 </span>
               </div>
               <div className="flex items-center">
-                <span className="block font-medium w-[148px] text-gray-900 dark:text-bluewood-100">
+                <span className="dark:text-bluewood-100 block w-[148px] font-medium text-gray-900">
                   Base Friendship
                 </span>
-                <span className="block text-lg text-gray-500 dark:text-bluewood-400">
+                <span className="dark:text-bluewood-400 block text-lg text-gray-500">
                   {pokemonSpecie.baseHapiness}
                 </span>
               </div>
@@ -242,19 +243,19 @@ export default async function PokemonPage({ params }: PokemonPageProps) {
             </h4>
             <div className="space-y-5">
               <div className="flex items-center">
-                <span className="block font-medium w-[148px] text-gray-900 dark:text-bluewood-100">
+                <span className="dark:text-bluewood-100 block w-[148px] font-medium text-gray-900">
                   Gender Radio
                 </span>
                 {pokemonSpecie.femaleRatio >= 0 ? (
                   <div className="flex gap-5">
-                    <div className="flex items-center gap-0.5 text-lg font-medium text-type-flying-primary">
+                    <div className="text-type-flying-primary flex items-center gap-0.5 text-lg font-medium">
                       <MaleGenderIcon className="size-4" />
                       <span className="block text-lg">
                         {pokemonSpecie.maleRatio}%
                       </span>
                     </div>
 
-                    <div className="flex items-center gap-0.5 text-lg font-medium text-type-fairy-primary">
+                    <div className="text-type-fairy-primary flex items-center gap-0.5 text-lg font-medium">
                       <FemaleGenderIcon className="size-4" />
                       <span className="block text-lg">
                         {pokemonSpecie.femaleRatio}%
@@ -262,16 +263,16 @@ export default async function PokemonPage({ params }: PokemonPageProps) {
                     </div>
                   </div>
                 ) : (
-                  <span className="block text-lg text-gray-500 dark:text-bluewood-400">
+                  <span className="dark:text-bluewood-400 block text-lg text-gray-500">
                     Gender unknown
                   </span>
                 )}
               </div>
               <div className="flex items-center">
-                <span className="block font-medium w-[148px] text-gray-900 dark:text-bluewood-100">
+                <span className="dark:text-bluewood-100 block w-[148px] font-medium text-gray-900">
                   Egg Groups
                 </span>
-                <span className="block text-lg text-gray-500 dark:text-bluewood-400">
+                <span className="dark:text-bluewood-400 block text-lg text-gray-500">
                   {pokemonSpecie.eggGroups.join(", ")}
                 </span>
               </div>

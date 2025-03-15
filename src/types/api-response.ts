@@ -63,6 +63,7 @@ export interface EvolutionChainResponse {
 export interface EvolutionNode {
   species: {
     name: string;
+    url: string;
   };
   evolves_to: EvolutionNode[];
   evolution_details: EvolutionDetail[];

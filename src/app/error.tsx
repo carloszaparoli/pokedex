@@ -14,16 +14,14 @@ export default function Error({
   }, [error]);
 
   return (
-    <div className="flex h-screen flex-col items-center justify-center">
-      <h1 className="text-4xl font-bold text-red-600">Ocorreu um erro!</h1>
-      <p className="text-gray-500 mt-2">
-        {error.message || "Erro desconhecido."}
-      </p>
+    <div className="flex h-[calc(100vh-96px)] flex-col items-center justify-center">
+      <h1 className="text-4xl font-bold text-red-600">An error occurred!</h1>
+      <p className="mt-2 text-gray-500">{error.message || "Unknown error."}</p>
       <button
         onClick={() => reset()}
-        className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+        className="mt-4 h-10 cursor-pointer rounded-lg bg-blue-500 bg-red-200 px-6 text-white transition-colors duration-300 hover:bg-blue-600 hover:bg-red-500 md:h-12"
       >
-        Tentar novamente
+        Try again
       </button>
     </div>
   );

@@ -5,13 +5,13 @@ import { capitalize } from "@/utils/formatters";
 import { calculateStatRange } from "@/utils/stats";
 
 export const pokemonDetailsAdapter = (
-  pokemon: PokemonDetailsResponse
+  pokemon: PokemonDetailsResponse,
 ): PokemonDetails => {
   const height = pokemon.height / 10; //Convert to 'm'
   const weight = pokemon.weight / 10; //Convert to 'kg'
   const image =
-    pokemon.sprites.other?.["official-artwork"]?.front_default ||
-    pokemon.sprites.front_default;
+    pokemon.sprites?.other?.["official-artwork"]?.front_default ||
+    pokemon.sprites?.front_default;
   const types = pokemon.types.map((t) => t.type.name);
   const abilities = pokemon.abilities.map((a) => ({
     name: capitalize(a.ability.name),

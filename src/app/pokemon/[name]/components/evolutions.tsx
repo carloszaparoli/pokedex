@@ -15,7 +15,7 @@ interface EvolutionChainProps {
 export function Evolutions({ evolutions }: EvolutionChainProps) {
   if (evolutions.length <= 0) {
     return (
-      <p className="text-gray-500 dark:text-bluewood-400 transition-colors duration-300">
+      <p className="dark:text-bluewood-400 text-gray-500 transition-colors duration-300">
         This Pokemon does not evolve.
       </p>
     );
@@ -37,39 +37,44 @@ export function Evolutions({ evolutions }: EvolutionChainProps) {
             className="flex items-center justify-between"
           >
             <Link href={`/pokemon/${from.name}`} className="group text-center">
-              <div className="p-3 bg-[url(/pokeball-gradient-light.svg)] dark:bg-[url(/pokeball-gradient-dark.svg)] bg-no-repeat md:bg-[length:156px] bg-[length:112px]">
-                <Image
-                  src={from.image}
-                  alt={formattedFromPokemonName}
-                  width={132}
-                  height={132}
-                  className="group-hover:-translate-y-1 group-focus:-translate-y-1 transition-transform duration-300 md:size-[132px] size-[88px]"
-                />
+              <div className="bg-[url(/pokeball-gradient-light.svg)] bg-[length:112px] bg-no-repeat p-3 md:bg-[length:156px] dark:bg-[url(/pokeball-gradient-dark.svg)]">
+                {from.image && (
+                  <Image
+                    src={from.image}
+                    alt={formattedFromPokemonName}
+                    width={132}
+                    height={132}
+                    className="size-[88px] transition-transform duration-300 group-hover:-translate-y-1 group-focus:-translate-y-1 md:size-[132px]"
+                  />
+                )}
               </div>
-              <span className="text-sm font-medium text-gray-400 dark:text-bluewood-500">
+              <span className="dark:text-bluewood-500 text-xs font-medium text-gray-400 md:text-sm">
                 {formattedFromPokemonId}
               </span>
-              <h4 className="text-lg font-bold leading-none text-gray-900 dark:text-bluewood-100">
+              <h4 className="dark:text-bluewood-100 text-base leading-none font-bold text-gray-900 md:text-lg">
                 {formattedFromPokemonName}
               </h4>
             </Link>
 
-            <div className="flex flex-col items-center gap-2 text-gray-900 dark:text-bluewood-100">
-              <ArrowRight className="size-8 text-gray-200 dark:text-bluewood-700" />
+            <div className="dark:text-bluewood-100 flex flex-col items-center gap-2 text-gray-900">
+              <ArrowRight className="dark:text-bluewood-700 size-8 text-gray-200" />
               {minLevel && (
-                <span className="block text-sm font-bold">
+                <span className="block text-xs font-bold md:text-sm">
                   Level {minLevel}
                 </span>
               )}
               {item && (
                 <div className="flex items-center">
-                  <Image
-                    src={item.image}
-                    alt={item.name}
-                    width={30}
-                    height={30}
-                  />
-                  <span className="block text-sm font-bold">
+                  {item.image && (
+                    <Image
+                      src={item.image}
+                      alt={item.name}
+                      width={30}
+                      height={30}
+                      className="size-7 md:size-[30px]"
+                    />
+                  )}
+                  <span className="block text-xs font-bold md:text-sm">
                     {formattedItemName}
                   </span>
                 </div>
@@ -77,19 +82,21 @@ export function Evolutions({ evolutions }: EvolutionChainProps) {
             </div>
 
             <Link href={`/pokemon/${to.name}`} className="group text-center">
-              <div className="p-3 bg-[url(/pokeball-gradient-light.svg)] dark:bg-[url(/pokeball-gradient-dark.svg)] bg-no-repeat md:bg-[length:156px] bg-[length:112px]">
-                <Image
-                  src={to.image}
-                  alt={formattedToPokemonName}
-                  width={132}
-                  height={132}
-                  className="group-hover:-translate-y-1 group-focus:-translate-y-1 transition-transform duration-300 md:size-[132px] size-[88px]"
-                />
+              <div className="bg-[url(/pokeball-gradient-light.svg)] bg-[length:112px] bg-no-repeat p-3 md:bg-[length:156px] dark:bg-[url(/pokeball-gradient-dark.svg)]">
+                {to.image && (
+                  <Image
+                    src={to.image}
+                    alt={formattedToPokemonName}
+                    width={132}
+                    height={132}
+                    className="size-[88px] transition-transform duration-300 group-hover:-translate-y-1 group-focus:-translate-y-1 md:size-[132px]"
+                  />
+                )}
               </div>
-              <span className="text-sm font-medium text-gray-400 dark:text-bluewood-500">
+              <span className="dark:text-bluewood-500 text-xs font-medium text-gray-400 md:text-sm">
                 {formattedToPokemonId}
               </span>
-              <h4 className="text-lg font-bold leading-none text-gray-900 dark:text-bluewood-100">
+              <h4 className="dark:text-bluewood-100 text-base leading-none font-bold text-gray-900 md:text-lg">
                 {formattedToPokemonName}
               </h4>
             </Link>

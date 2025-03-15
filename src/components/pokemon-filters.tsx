@@ -99,19 +99,19 @@ export function PokemonFilters({
   return (
     <div className="space-y-8 md:space-y-10">
       <form onSubmit={handleSubmit}>
-        <InputRoot className="w-full max-w-[360px] mx-auto">
+        <InputRoot className="mx-auto w-full max-w-[360px]">
           <InputField
             placeholder="Pokémon name"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
-          <Button className="p-1 size-8 -mr-2 cursor-pointer" type="submit">
+          <Button className="-mr-2 size-8 cursor-pointer p-1" type="submit">
             <PokeballIcon className="size-5 text-white" />
           </Button>
         </InputRoot>
       </form>
 
-      <div className="flex gap-x-6 overflow-y-auto md:justify-center md:flex-wrap  md:gap-x-8 md:gap-y-4 md:max-w-[800px] md:mx-auto">
+      <div className="flex scroll-m-10 gap-x-6 overflow-y-auto pb-2 md:mx-auto md:max-w-[800px] md:flex-wrap md:justify-center md:gap-x-8 md:gap-y-4 md:pb-0">
         {POKEMON_TYPES.map((type) => (
           <button
             key={type}
@@ -121,10 +121,10 @@ export function PokemonFilters({
           >
             <div
               className={twMerge(
-                `flex items-center justify-center size-12 rounded-full border  mb-1 transition-colors duration-300 ${iconTypeClasses[type]} ${hoverTypeClasses[type]}`,
+                `mb-1 flex size-12 items-center justify-center rounded-full border transition-colors duration-300 ${iconTypeClasses[type]} ${hoverTypeClasses[type]}`,
                 selectedType === type
                   ? selectedTypeClasses[type]
-                  : "bg-white border-gray-200 dark:bg-bluewood-900 dark:border-bluewood-800"
+                  : "dark:bg-bluewood-900 dark:border-bluewood-800 border-gray-200 bg-white",
               )}
             >
               <PokemonTypeIcon
@@ -134,11 +134,11 @@ export function PokemonFilters({
             </div>
             <span
               className={twMerge(
-                "text-gray-500 dark:text-bluewood-500 text-xs",
+                "dark:text-bluewood-500 text-xs text-gray-500",
                 `${
                   selectedType === type &&
-                  `font-medium text-gray-700 dark:text-bluewood-300`
-                }`
+                  `dark:text-bluewood-300 font-medium text-gray-700`
+                }`,
               )}
             >
               {POKEMON_TYPE_LABELS[type]}

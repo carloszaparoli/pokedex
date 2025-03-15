@@ -41,7 +41,7 @@ export interface Stats {
 export interface PokemonDetails {
   id: number;
   name: string;
-  image: string;
+  image?: string;
   types: PokemonType[];
   weight: number;
   height: number;
@@ -70,12 +70,12 @@ export interface EvolutionChain {
   from: {
     id: number;
     name: string;
-    image: string;
+    image?: string;
   };
   to: {
     id: number;
     name: string;
-    image: string;
+    image?: string;
   };
   minLevel?: number;
   item?: ItemInfo;
@@ -83,5 +83,5 @@ export interface EvolutionChain {
 
 export interface ItemInfo {
   name: string;
-  image: string;
+  image: string | null;
 }

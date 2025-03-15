@@ -15,19 +15,25 @@ export function PokemonCryButton({ cryUrl }: PokemonCryButtonProps) {
   }, [cryUrl]);
 
   const playCry = () => {
-    if (audioRef.current) {
-      audioRef.current.currentTime = 0;
-      audioRef.current.play();
+    try {
+      if (audioRef.current) {
+        audioRef.current.currentTime = 0;
+        audioRef.current.play();
+      }
+    } catch (error) {
+      console.error(error);
     }
   };
 
   return (
-    <button
-      title="Play cry"
-      onClick={playCry}
-      className="cursor-pointer size-10 flex items-center justify-center rounded-full border border-white text-white transition-opacity hover:opacity-70"
-    >
-      <Volume2 />
-    </button>
+    <div className="flex gap-2">
+      <button
+        onClick={playCry}
+        className="flex h-10 cursor-pointer items-center justify-center gap-2 rounded-lg bg-red-200 px-4 text-white transition-colors duration-300 hover:bg-red-500"
+      >
+        <Volume2 className="size-5" />
+        Play
+      </button>
+    </div>
   );
 }

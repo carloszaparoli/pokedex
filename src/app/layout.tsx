@@ -13,6 +13,7 @@ const roboto = Roboto({
 
 export const metadata: Metadata = {
   title: "Pokédex",
+  icons: "/favicon.png",
 };
 
 export default function RootLayout({
@@ -22,12 +23,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${roboto.variable}`} suppressHydrationWarning>
-      <head>
-        <link rel="shortcut icon" href="favicon.png" type="image/png" />
-      </head>
-      <body className="bg-gray-100 dark:bg-bluewood-950 antialiased transition-colors duration-300">
+      <body className="dark:bg-bluewood-950 bg-gray-100 antialiased transition-colors duration-300">
         <ThemeProvider attribute="class">
-          <main className="max-w-[1024px] mx-auto py-0 md:py-4">
+          <main className="mx-auto max-w-[1024px] py-0 md:py-4">
             <Header />
             {children}
           </main>
