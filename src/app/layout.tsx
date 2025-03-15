@@ -3,6 +3,7 @@ import { Roboto } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/header";
 import { ThemeProvider } from "next-themes";
+import { Suspense } from "react";
 
 const roboto = Roboto({
   variable: "--font-roboto",
@@ -27,7 +28,7 @@ export default function RootLayout({
         <ThemeProvider attribute="class">
           <main className="mx-auto max-w-[1024px] py-0 md:py-4">
             <Header />
-            {children}
+            <Suspense>{children}</Suspense>
           </main>
         </ThemeProvider>
       </body>
