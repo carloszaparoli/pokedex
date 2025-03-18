@@ -4,6 +4,7 @@ import logoForDark from "../assets/logo-dark.svg";
 import logoForLight from "../assets/logo-light.svg";
 import { ThemeToggle } from "./theme-toggle-button";
 import { GithubIcon } from "./icons/github-icon";
+import Link from "next/link";
 
 export function Header() {
   return (
@@ -16,18 +17,20 @@ export function Header() {
       >
         <GithubIcon />
       </a>
-      <Image
-        src={logoForDark}
-        alt=""
-        width={160}
-        className="hidden dark:block"
-      />
-      <Image
-        src={logoForLight}
-        alt=""
-        width={160}
-        className="block dark:hidden"
-      />
+      <Link href="/" className="transition-opacity hover:opacity-80">
+        <Image
+          src={logoForDark}
+          alt=""
+          width={160}
+          className="hidden dark:block"
+        />
+        <Image
+          src={logoForLight}
+          alt=""
+          width={160}
+          className="block dark:hidden"
+        />
+      </Link>
       <ThemeToggle />
     </div>
   );

@@ -7,6 +7,9 @@ export async function mapEvolutionChain(
 ): Promise<EvolutionChain[]> {
   const evolutionSteps: EvolutionChain[] = [];
 
+  if (!chain.chain.evolves_to || chain.chain.evolves_to.length === 0)
+    return evolutionSteps;
+
   async function traverseEvolution(
     current: EvolutionNode,
     from: PokemonDetails,
@@ -16,6 +19,7 @@ export async function mapEvolutionChain(
     for (const next of current.evolves_to) {
       console.log(next.species.name);
       const to = await getPokemonDetailsByName(next.species.name);
+
       const detail = next.evolution_details[0];
       let item: ItemInfo | undefined;
 
@@ -33,6 +37,7 @@ export async function mapEvolutionChain(
       await traverseEvolution(next, to);
     }
   }
+
   const firstPokemon = await getPokemonDetailsByName(chain.chain.species.name);
   await traverseEvolution(chain.chain, firstPokemon);
 

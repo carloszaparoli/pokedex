@@ -15,6 +15,7 @@ import { Evolutions } from "./components/evolutions";
 import { Metadata } from "next";
 import { PokemonCryButton } from "./components/pokemon-cry-button";
 import { BackButton } from "./components/back-button";
+import { mapEvolutionChain } from "@/adapters/evolution-chain-adapter";
 
 interface PokemonPageProps {
   params: Promise<{ name: string }>;
@@ -37,12 +38,12 @@ export async function generateMetadata({
 
 export default async function PokemonPage({ params }: PokemonPageProps) {
   const pokemonName = (await params).name;
-
   const pokemonDetails = await getPokemonDetailsByName(pokemonName);
   const pokemonSpecie = await getPokemonSpecieByUrl(pokemonDetails.specieUrl);
-  const evolutionChain = await getEvolutionChainByUrl(
+  const evolutionChainData = await getEvolutionChainByUrl(
     pokemonSpecie.evolutionChainUrl,
   );
+  const evolutionChain = await mapEvolutionChain(evolutionChainData);
 
   const formattedPokemonId = formatPokemonId(pokemonDetails.id);
   const formattedPokemonName = formatKebabCaseToTitle(pokemonDetails.name);

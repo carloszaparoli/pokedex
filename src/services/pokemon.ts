@@ -1,4 +1,3 @@
-import { mapEvolutionChain } from "@/adapters/evolution-chain-adapter";
 import { itemInfoAdapter } from "@/adapters/item-info-adapter";
 import { pokemonDetailsAdapter } from "@/adapters/pokemon-details-adapter";
 import { pokemonSpecieAdapter } from "@/adapters/pokemon-specie-adapter";
@@ -33,8 +32,6 @@ export async function getPokemonUrlsByType(type: PokemonType) {
 }
 
 export async function getPokemonDetailsByUrl(url: string) {
-  // await new Promise((resolve) => setTimeout(resolve, 1000));
-
   const { data } = await axios.get<PokemonDetailsResponse>(url);
 
   return data;
@@ -64,7 +61,7 @@ export async function getPokemonSpecieByUrl(url: string) {
 export async function getEvolutionChainByUrl(url: string) {
   const { data } = await axios.get<EvolutionChainResponse>(url);
 
-  return mapEvolutionChain(data);
+  return data;
 }
 
 export async function getItemInfo(itemName: string) {

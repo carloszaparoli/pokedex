@@ -3,16 +3,16 @@ import { PokemonSpecie } from "@/types/pokemon";
 import { capitalize } from "@/utils/formatters";
 
 export const pokemonSpecieAdapter = (
-  pokemonSpecie: PokemonSpecieResponse
+  pokemonSpecie: PokemonSpecieResponse,
 ): PokemonSpecie => {
   const description =
     pokemonSpecie.flavor_text_entries.find(
-      (flavorText) => flavorText.version.name === "firered"
+      (flavorText) => flavorText.version.name === "firered",
     )?.flavor_text ?? "";
   const femaleRatio = (pokemonSpecie.gender_rate * 100) / 8;
   const maleRatio = 100 - (pokemonSpecie.gender_rate * 100) / 8;
   const eggGroups = pokemonSpecie.egg_groups.map((group) =>
-    capitalize(group.name)
+    capitalize(group.name).split("-").join(" "),
   );
 
   return {
