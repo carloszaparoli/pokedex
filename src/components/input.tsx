@@ -20,7 +20,7 @@ type InputFieldProps = ComponentProps<"input">;
 export function InputField(props: InputFieldProps) {
   return (
     <input
-      className="dark:placeholder:text-bluewood-400 flex-1 outline-0 transition-colors duration-300 placeholder:text-gray-400"
+      className="dark:placeholder:text-bluewood-400 flex-1 outline-0 placeholder:text-gray-400"
       {...props}
     />
   );
